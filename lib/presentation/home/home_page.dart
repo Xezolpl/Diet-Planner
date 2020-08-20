@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:diet_planner/util/navigator.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();

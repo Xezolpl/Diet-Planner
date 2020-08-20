@@ -1,0 +1,3 @@
+Apps/games:
+
+Place the attribution on the app's credits page and on the description page on the app store. 
