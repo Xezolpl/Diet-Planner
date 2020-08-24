@@ -3,6 +3,7 @@ import 'package:diet_planner/model/nutrition.dart';
 import 'package:diet_planner/model/product.dart';
 import 'package:diet_planner/presentation/meal_products/meal_product_card.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
+import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:diet_planner/util/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_planner/util/xdatetime.dart';
@@ -27,21 +28,9 @@ class _MealProductsPageState extends State<MealProductsPage> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            leading: Container(
-              margin: EdgeInsets.only(left: 10),
-              child: IconButton(
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.keyboard_arrow_left,
-                  size: 32,
-                ),
-              ),
-            ),
+          appBar: getMealDateAppBar(
+            context,
+            meal,
             actions: [
               Container(
                 margin: EdgeInsets.only(right: 10),
@@ -57,28 +46,6 @@ class _MealProductsPageState extends State<MealProductsPage> {
                 ),
               ),
             ],
-            toolbarHeight: 70,
-            title: Column(
-              children: [
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  '${meal.name}',
-                  style: TextStyle(fontSize: 22),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  '${meal.date.printAdverbOfTimeOrDate()}',
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-              ],
-            ),
           ),
           body: Column(
             children: [

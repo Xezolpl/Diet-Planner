@@ -1,45 +1,10 @@
 import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/model/product.dart';
+import 'package:diet_planner/model/portion_size.dart';
+import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_planner/util/xdatetime.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-enum PortionSizeOptions { GLASS, SPOON, HANDFUL, CUSTOM }
-
-extension XPortionSizeOptions on PortionSizeOptions {
-  String get name {
-    switch (this) {
-      case PortionSizeOptions.GLASS:
-        return 'Glass';
-      case PortionSizeOptions.SPOON:
-        return 'Spoon';
-      case PortionSizeOptions.HANDFUL:
-        return 'Handful';
-      case PortionSizeOptions.CUSTOM:
-        return 'Custom';
-    }
-  }
-
-  Map<int, String> get defaultValue {
-    switch (this) {
-      case PortionSizeOptions.GLASS:
-        return {250: 'ml'};
-      case PortionSizeOptions.SPOON:
-        return {5: 'g'};
-      case PortionSizeOptions.HANDFUL:
-        return {30: 'g'};
-      case PortionSizeOptions.CUSTOM:
-        return {25: 'g'};
-    }
-  }
-}
-
-class PortionSize {
-  final String name;
-  final Map<int, String> value;
-
-  PortionSize({@required this.name, @required this.value});
-}
 
 class ProductPage extends StatefulWidget {
   final Product product;
@@ -127,44 +92,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: Container(
-          margin: EdgeInsets.only(left: 10),
-          child: IconButton(
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.keyboard_arrow_left,
-              size: 32,
-            ),
-          ),
-        ),
-        toolbarHeight: 70,
-        title: Column(
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              '${meal.name}',
-              style: TextStyle(fontSize: 22),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              '${meal.date.printAdverbOfTimeOrDate()}',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-          ],
-        ),
-      ),
+      appBar: getMealDateAppBar(context, meal),
       body: Form(
         child: GestureDetector(
           onTap: () {
