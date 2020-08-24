@@ -48,6 +48,7 @@ class _MealProductsPageState extends State<MealProductsPage> {
                 child: IconButton(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
+                    navigateToProductPage(context, Product.empty(), meal);
                   },
                   icon: Icon(
                     Icons.add_circle,
@@ -82,7 +83,7 @@ class _MealProductsPageState extends State<MealProductsPage> {
           body: Column(
             children: [
               Container(
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: TextField(
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                   decoration: InputDecoration(

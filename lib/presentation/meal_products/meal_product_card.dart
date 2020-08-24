@@ -98,6 +98,10 @@ String getAssetPathForCategory(String category) {
     case 'fruit':
       name = 'apple';
       break;
+    case 'none':
+    case '':
+      name = 'none';
+      break;
   }
   return 'assets/png/food/$name.png';
 }
