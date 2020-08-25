@@ -1,16 +1,8 @@
-# diet_planner
+# Diet Planner
 
-A new Flutter project.
+Diet Planner is my small project to improve my design skills in Flutter. It will be available on a Play Store as a application for making diet plans and tracking your meals day by day.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots so far:
+![Daily meals](https://ibb.co/8sjNkb7)
+![Products selecting]https://ibb.co/LYHk3CC)
+![New product adding](https://ibb.co/dKvmtVY)
