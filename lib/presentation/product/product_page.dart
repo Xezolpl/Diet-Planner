@@ -1,9 +1,10 @@
 import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/model/product.dart';
 import 'package:diet_planner/model/portion_size.dart';
+import 'package:diet_planner/presentation/product/portions_column.dart';
+import 'package:diet_planner/presentation/product/units_dropdown_button.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_planner/util/xdatetime.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductPage extends StatefulWidget {
@@ -21,76 +22,28 @@ class _ProductPageState extends State<ProductPage> {
   final Meal meal;
   bool isProductDetailsWidgetVisible = false;
 
-  Container sizesList = Container();
-  List<PortionSize> sizes = [];
+  List<PortionSize> portionsList = [];
+  PortionsColumn portionsColumn;
 
   _ProductPageState(this.product, this.meal);
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _sizesOptionOnTap([PortionSizeOptions sizeOption]) {
+    if (sizeOption != null) {
+      portionsList.add(PortionSize(
+          name: sizeOption.name,
+          option: sizeOption,
+          value: sizeOption.defaultValue));
+    }
+
     setState(() {
-      if (sizeOption != null) {
-        sizes.add(
-            PortionSize(name: sizeOption.name, value: sizeOption.defaultValue));
-      }
-      sizesList = Container(
-        margin: EdgeInsets.only(left: 10),
-        alignment: Alignment.center,
-        height: (sizes.length * 58.0),
-        child: Column(
-            children: sizes
-                .map((e) => Container(
-                      padding: EdgeInsets.only(top: 5, bottom: 5),
-                      child: Row(
-                        children: [
-                          getOutlineBorderTextField(
-                              initValue: e.name,
-                              readOnly: sizeOption == PortionSizeOptions.CUSTOM
-                                  ? false
-                                  : true),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          getOutlineBorderTextField(
-                              initValue:
-                                  '${e.value.keys.first}${e.value.values.first}'),
-                          IconButton(
-                              icon: Icon(Icons.cancel, color: Colors.red),
-                              onPressed: () {
-                                sizes.remove(e);
-                                _sizesOptionOnTap();
-                              }),
-                        ],
-                      ),
-                    ))
-                .toList()),
-      );
+      portionsColumn = PortionsColumn(portionsList);
     });
   }
 
-  Widget getOutlineBorderTextField({
-    Function(String) onChanged,
-    String initValue = '',
-    bool readOnly = false,
-  }) =>
-      Expanded(
-        child: Container(
-          height: 35,
-          child: TextField(
-            readOnly: readOnly,
-            onChanged: onChanged,
-            controller: TextEditingController(text: initValue),
-            decoration: InputDecoration(border: OutlineInputBorder()),
-          ),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) {
+    portionsColumn = PortionsColumn(portionsList);
+
     return Scaffold(
       appBar: getMealDateAppBar(context, meal),
       body: Form(
@@ -233,7 +186,7 @@ class _ProductPageState extends State<ProductPage> {
                     ],
                   ),
                 ),
-                sizesList,
+                portionsColumn,
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: 10, bottom: 3),
@@ -573,7 +526,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 }
 
-class LabelWithTextFieldRow extends StatefulWidget {
+class LabelWithTextFieldRow extends StatelessWidget {
   final String label, hint;
   final List<String> units;
   final double indent;
@@ -590,24 +543,6 @@ class LabelWithTextFieldRow extends StatefulWidget {
       Key key})
       : assert(units != null && units.length > 0),
         super(key: key);
-
-  @override
-  State<StatefulWidget> createState() =>
-      LabelWithTextFieldRowState(label, hint, units, indent, needed, onChanged);
-}
-
-class LabelWithTextFieldRowState extends State<LabelWithTextFieldRow> {
-  final String label, hint;
-  final List<String> units;
-  final double indent;
-  final bool needed;
-  final Function(double) onChanged;
-
-  String selectedUnit;
-
-  LabelWithTextFieldRowState(this.label, this.hint, this.units, this.indent,
-      this.needed, this.onChanged)
-      : selectedUnit = units.first;
 
   @override
   Widget build(BuildContext context) {
@@ -666,26 +601,7 @@ class LabelWithTextFieldRowState extends State<LabelWithTextFieldRow> {
               height: 35,
               child: units.length == 1
                   ? Text(units[0])
-                  : DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedUnit,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedUnit = value;
-                          });
-                        },
-                        items: units
-                            .map<DropdownMenuItem<String>>(
-                                (e) => DropdownMenuItem<String>(
-                                      value: e,
-                                      child: Text(
-                                        e,
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ))
-                            .toList(),
-                      ),
-                    )),
+                  : UnitsDropdownButton(units)),
         ],
       ),
     );
