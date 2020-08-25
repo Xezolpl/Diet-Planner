@@ -4,5 +4,5 @@ Diet Planner is my small project to improve my design skills in Flutter. It will
 
 ## Screenshots so far:
 ![Daily meals](https://ibb.co/8sjNkb7)
-![Products selecting]https://ibb.co/LYHk3CC)
+![Products selecting](https://i.ibb.co/Qptb466/d2.png)           ////(https://ibb.co/LYHk3CC)
 ![New product adding](https://ibb.co/dKvmtVY)
