@@ -4,10 +4,13 @@ Diet Planner is my small project to improve my design skills in Flutter. It will
 
 ## Screenshots so far:
 Track your meals!
+
 ![Daily meals](https://i.ibb.co/1Q97cMm/d1.png)
 
 Select products from the database!
+
 ![Products selecting](https://i.ibb.co/Qptb466/d2.png)
 
 Add your own products!
+
 ![New product adding](https://i.ibb.co/BsJnGQM/d3.png)
