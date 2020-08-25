@@ -1,4 +1,5 @@
 import 'package:diet_planner/model/portion_size.dart';
+import 'package:diet_planner/presentation/product/units_dropdown_button.dart';
 import 'package:flutter/material.dart';
 
 import 'outline_border_text_field.dart';
@@ -39,6 +40,7 @@ class _PortionsColumnState extends State<PortionsColumn> {
                           OutlineBorderTextField(
                               initValue:
                                   '${portionSize.value.keys.first}${portionSize.value.values.first}'),
+                          UnitsDropdownButton(['ml', 'g']),
                           IconButton(
                             icon: Icon(Icons.cancel, color: Colors.red),
                             onPressed: () {

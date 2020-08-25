@@ -588,20 +588,7 @@ class LabelWithTextFieldRow extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          Container(
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                  )),
-              padding: EdgeInsets.only(left: 5),
-              width: 55,
-              height: 35,
-              child: units.length == 1
-                  ? Text(units[0])
-                  : UnitsDropdownButton(units)),
+          UnitsDropdownButton(units),
         ],
       ),
     );
