@@ -2,7 +2,7 @@ import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/model/product.dart';
 import 'package:diet_planner/presentation/product/portions/portions_view.dart';
 
-import 'package:diet_planner/presentation/product/units_dropdown_button.dart';
+import 'package:diet_planner/presentation/widgets/units_dropdown_button.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
 

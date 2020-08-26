@@ -1,9 +1,9 @@
 import 'package:diet_planner/model/portion_size.dart';
 import 'package:flutter/material.dart';
 
-import '../outline_border_text_field.dart';
+import '../../widgets/outline_border_text_field.dart';
 import 'portions_view.dart';
-import '../units_dropdown_button.dart';
+import '../../widgets/units_dropdown_button.dart';
 
 class PortionRecord extends StatelessWidget {
   final PortionSize portionSize;
