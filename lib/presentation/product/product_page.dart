@@ -1,11 +1,10 @@
 import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/model/product.dart';
-import 'package:diet_planner/model/portion_size.dart';
-import 'package:diet_planner/presentation/product/portions_column.dart';
+import 'package:diet_planner/presentation/product/portions/portions_view.dart';
+
 import 'package:diet_planner/presentation/product/units_dropdown_button.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductPage extends StatefulWidget {
   final Product product;
@@ -21,29 +20,10 @@ class _ProductPageState extends State<ProductPage> {
   final Product product;
   final Meal meal;
   bool isProductDetailsWidgetVisible = false;
-
-  List<PortionSize> portionsList = [];
-  PortionsColumn portionsColumn;
-
   _ProductPageState(this.product, this.meal);
-
-  void _sizesOptionOnTap([PortionSizeOptions sizeOption]) {
-    if (sizeOption != null) {
-      portionsList.add(PortionSize(
-          name: sizeOption.name,
-          option: sizeOption,
-          value: sizeOption.defaultValue));
-    }
-
-    setState(() {
-      portionsColumn = PortionsColumn(portionsList);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    portionsColumn = PortionsColumn(portionsList);
-
     return Scaffold(
       appBar: getMealDateAppBar(context, meal),
       body: Form(
@@ -77,116 +57,7 @@ class _ProductPageState extends State<ProductPage> {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ))),
-                Container(
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.GLASS);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.glassWhiskey,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Glass', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1.5,
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.SPOON);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.utensilSpoon,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Spoon', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1.5,
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.HANDFUL);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.handPaper,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Handful', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1.5,
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.CUSTOM);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.question,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Custom', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                portionsColumn,
+                PortionsView(),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: 10, bottom: 3),
@@ -580,8 +451,10 @@ class LabelWithTextFieldRow extends StatelessWidget {
           SizedBox(
               width: 100,
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  onChanged((double.parse(value) * 10).truncate() / 10);
+                  //TODO IF value IS A NUM CUZ USER STILL CAN TYPE THERE NORMAL STRINGS
+                  onChanged((double.parse(value) * 10).round() / 10);
                 },
                 decoration: InputDecoration(border: OutlineInputBorder()),
               )),

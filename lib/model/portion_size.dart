@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PortionSize {
   final String name;
@@ -35,6 +36,23 @@ extension XPortionSizeOptions on PortionSizeOptions {
         return {30: 'g'};
       case PortionSizeOptions.CUSTOM:
         return {25: 'g'};
+    }
+  }
+
+  IconData get iconData {
+    switch (this) {
+      case PortionSizeOptions.GLASS:
+        return FontAwesomeIcons.glassWhiskey;
+        break;
+      case PortionSizeOptions.SPOON:
+        return FontAwesomeIcons.utensilSpoon;
+        break;
+      case PortionSizeOptions.HANDFUL:
+        return FontAwesomeIcons.handPaper;
+        break;
+      default:
+        return FontAwesomeIcons.question;
+        break;
     }
   }
 }
