@@ -82,7 +82,7 @@ class _MealProductsPageState extends State<MealProductsPage> {
                 ),
               ),
               BottomAdPlayer(
-                adUrl: 'https://blueidea.pl/images/bg33333.jpg',
+                adUrl: '',
               ),
             ],
           )),

@@ -64,24 +64,38 @@ class _UnitsDropdownButtonState extends State<UnitsDropdownButton> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        value: selectedUnit,
-        onChanged: (value) {
-          setState(() {
-            selectedUnit = value;
-          });
-        },
-        items: units
-            .map<DropdownMenuItem<String>>((e) => DropdownMenuItem<String>(
-                  value: e,
-                  child: Text(
-                    e,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ))
-            .toList(),
-      ),
-    );
+    return Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+              color: Colors.grey,
+            )),
+        padding: EdgeInsets.only(left: 5),
+        width: 55,
+        height: 35,
+        child: units.length == 1
+            ? Text(units[0])
+            : DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: selectedUnit,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedUnit = value;
+                    });
+                  },
+                  items: units
+                      .map<DropdownMenuItem<String>>(
+                          (e) => DropdownMenuItem<String>(
+                                value: e,
+                                child: Text(
+                                  e,
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                              ))
+                      .toList(),
+                ),
+              ));
   }
 }

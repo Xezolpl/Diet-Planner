@@ -1,10 +1,10 @@
 import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/model/product.dart';
-import 'package:diet_planner/model/portion_size.dart';
+import 'package:diet_planner/presentation/product/portions/portions_view.dart';
+
+import 'package:diet_planner/presentation/widgets/units_dropdown_button.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_planner/util/xdatetime.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductPage extends StatefulWidget {
   final Product product;
@@ -20,74 +20,7 @@ class _ProductPageState extends State<ProductPage> {
   final Product product;
   final Meal meal;
   bool isProductDetailsWidgetVisible = false;
-
-  Container sizesList = Container();
-  List<PortionSize> sizes = [];
-
   _ProductPageState(this.product, this.meal);
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _sizesOptionOnTap([PortionSizeOptions sizeOption]) {
-    setState(() {
-      if (sizeOption != null) {
-        sizes.add(
-            PortionSize(name: sizeOption.name, value: sizeOption.defaultValue));
-      }
-      sizesList = Container(
-        margin: EdgeInsets.only(left: 10),
-        alignment: Alignment.center,
-        height: (sizes.length * 58.0),
-        child: Column(
-            children: sizes
-                .map((e) => Container(
-                      padding: EdgeInsets.only(top: 5, bottom: 5),
-                      child: Row(
-                        children: [
-                          getOutlineBorderTextField(
-                              initValue: e.name,
-                              readOnly: sizeOption == PortionSizeOptions.CUSTOM
-                                  ? false
-                                  : true),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          getOutlineBorderTextField(
-                              initValue:
-                                  '${e.value.keys.first}${e.value.values.first}'),
-                          IconButton(
-                              icon: Icon(Icons.cancel, color: Colors.red),
-                              onPressed: () {
-                                sizes.remove(e);
-                                _sizesOptionOnTap();
-                              }),
-                        ],
-                      ),
-                    ))
-                .toList()),
-      );
-    });
-  }
-
-  Widget getOutlineBorderTextField({
-    Function(String) onChanged,
-    String initValue = '',
-    bool readOnly = false,
-  }) =>
-      Expanded(
-        child: Container(
-          height: 35,
-          child: TextField(
-            readOnly: readOnly,
-            onChanged: onChanged,
-            controller: TextEditingController(text: initValue),
-            decoration: InputDecoration(border: OutlineInputBorder()),
-          ),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -124,116 +57,7 @@ class _ProductPageState extends State<ProductPage> {
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ))),
-                Container(
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.GLASS);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.glassWhiskey,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Glass', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1.5,
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.SPOON);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.utensilSpoon,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Spoon', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1.5,
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.HANDFUL);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.handPaper,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Handful', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        child: VerticalDivider(
-                          color: Colors.grey,
-                          thickness: 1.5,
-                        ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            _sizesOptionOnTap(PortionSizeOptions.CUSTOM);
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.question,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Text('Custom', style: TextStyle(fontSize: 15)),
-                              ]),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                sizesList,
+                PortionsView(),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: 10, bottom: 3),
@@ -573,7 +397,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 }
 
-class LabelWithTextFieldRow extends StatefulWidget {
+class LabelWithTextFieldRow extends StatelessWidget {
   final String label, hint;
   final List<String> units;
   final double indent;
@@ -590,24 +414,6 @@ class LabelWithTextFieldRow extends StatefulWidget {
       Key key})
       : assert(units != null && units.length > 0),
         super(key: key);
-
-  @override
-  State<StatefulWidget> createState() =>
-      LabelWithTextFieldRowState(label, hint, units, indent, needed, onChanged);
-}
-
-class LabelWithTextFieldRowState extends State<LabelWithTextFieldRow> {
-  final String label, hint;
-  final List<String> units;
-  final double indent;
-  final bool needed;
-  final Function(double) onChanged;
-
-  String selectedUnit;
-
-  LabelWithTextFieldRowState(this.label, this.hint, this.units, this.indent,
-      this.needed, this.onChanged)
-      : selectedUnit = units.first;
 
   @override
   Widget build(BuildContext context) {
@@ -645,47 +451,17 @@ class LabelWithTextFieldRowState extends State<LabelWithTextFieldRow> {
           SizedBox(
               width: 100,
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  onChanged((double.parse(value) * 10).truncate() / 10);
+                  //TODO IF value IS A NUM CUZ USER STILL CAN TYPE THERE NORMAL STRINGS
+                  onChanged((double.parse(value) * 10).round() / 10);
                 },
                 decoration: InputDecoration(border: OutlineInputBorder()),
               )),
           SizedBox(
             width: 10,
           ),
-          Container(
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(
-                    color: Colors.grey,
-                  )),
-              padding: EdgeInsets.only(left: 5),
-              width: 55,
-              height: 35,
-              child: units.length == 1
-                  ? Text(units[0])
-                  : DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedUnit,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedUnit = value;
-                          });
-                        },
-                        items: units
-                            .map<DropdownMenuItem<String>>(
-                                (e) => DropdownMenuItem<String>(
-                                      value: e,
-                                      child: Text(
-                                        e,
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ))
-                            .toList(),
-                      ),
-                    )),
+          UnitsDropdownButton(units),
         ],
       ),
     );

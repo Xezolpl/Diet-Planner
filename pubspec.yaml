@@ -33,6 +33,9 @@ dependencies:
   freezed_annotation: ^0.11.0+1
   freezed: ^0.11.5
   uuid: ^2.2.0
+  connectivity: ^0.4.9+2
+  permission_handler: ^5.0.1+1
+  data_connection_checker: ^0.3.4
 
 dev_dependencies:
   flutter_test:
