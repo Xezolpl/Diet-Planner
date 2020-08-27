@@ -24,7 +24,7 @@ abstract class AdPlayer extends StatefulWidget {
 abstract class _AdPlayerState extends State<AdPlayer> {
   final String adUrl;
   bool isVisible = false;
-  var listener;
+  StreamSubscription<DataConnectionStatus> listener;
   Widget adImage;
 
   _AdPlayerState(this.adUrl)
@@ -45,8 +45,8 @@ abstract class _AdPlayerState extends State<AdPlayer> {
   }
 
   @override
-  void dispose() async {
-    await listener.cancel();
+  void dispose() {
+    listener?.cancel();
     super.dispose();
   }
 }
