@@ -1,4 +1,5 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:diet_planner/model/diet.dart';
 import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
 import 'package:flutter/material.dart';
@@ -29,26 +30,13 @@ final dumpUserMealsList = [
       kcal: 200),
 ];
 
-class MealPlanPage extends StatefulWidget {
-  MealPlanPage({Key key}) : super(key: key);
+class MealPlanPage extends StatelessWidget {
+  final Diet diet;
 
-  @override
-  _MealPlanPageState createState() => _MealPlanPageState();
-}
-
-class _MealPlanPageState extends State<MealPlanPage> {
-  bool isAdPlayerVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _connectionChanged(dynamic hasConnection) {
-    setState(() {
-      isAdPlayerVisible = hasConnection;
-    });
-  }
+  const MealPlanPage(
+    this.diet, {
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +46,13 @@ class _MealPlanPageState extends State<MealPlanPage> {
           child: Container(
             padding: EdgeInsets.all(5),
             child: ListView.builder(
-                itemCount: dumpUserMealsList.length,
+                itemCount:
+                    diet == null ? dumpUserMealsList.length : diet.meals.length,
                 itemBuilder: (context, index) {
-                  return MealCard(meal: dumpUserMealsList[index]);
+                  return MealCard(
+                      meal: diet == null
+                          ? dumpUserMealsList[index]
+                          : diet.meals[index]);
                 }),
           ),
         ),

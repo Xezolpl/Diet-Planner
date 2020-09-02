@@ -1,3 +1,4 @@
+import 'package:diet_planner/model/diet.dart';
 import 'package:diet_planner/presentation/diets/diets_page.dart';
 import 'package:diet_planner/presentation/meal_plan/meal_plan_page.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +9,14 @@ class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
+  Diet _currentDiet;
   PageController _pageController;
   int _page = 0;
-  DateTime selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                   iconSize: 32,
                   onPressed: () {
                     setState(() {
-                      selectedDate = selectedDate.subtract(Duration(days: 1));
+                      _selectedDate = _selectedDate.subtract(Duration(days: 1));
                     });
                   },
                   icon: Icon(
@@ -41,14 +43,14 @@ class _HomePageState extends State<HomePage> {
                       height: 5,
                     ),
                     Text(
-                      selectedDate.printAdverbOfTimeOrDate(),
+                      _selectedDate.printAdverbOfTimeOrDate(),
                       style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(
                       height: 2,
                     ),
                     Text(
-                      selectedDate.printWeekday(),
+                      _selectedDate.printWeekday(),
                       style: TextStyle(fontSize: 14),
                     ),
                   ],
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   iconSize: 32,
                   onPressed: () {
                     setState(() {
-                      selectedDate = selectedDate.add(Duration(days: 1));
+                      _selectedDate = _selectedDate.add(Duration(days: 1));
                     });
                   },
                   icon: Icon(
@@ -76,8 +78,8 @@ class _HomePageState extends State<HomePage> {
           : AppBar(),
       body: PageView(
         children: <Widget>[
-          MealPlanPage(),
-          DietsPage(),
+          MealPlanPage(_currentDiet),
+          DietsPage(this),
         ],
         controller: _pageController,
         onPageChanged: (int index) {
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
-        onTap: _navigationTapped,
+        onTap: navigationTapped,
         items: [
           BottomNavigationBarItem(
             title: Text('Meal plan'),
@@ -105,12 +107,12 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Container(width: double.infinity, height: 130, color: Colors.amber),
             ListTile(
-              title: new Text('Account'),
+              title: Text('Account'),
               trailing: Icon(Icons.account_circle),
               onTap: () => navigateToAccountPage(context),
             ),
             ListTile(
-              title: new Text('Contact & Credits'),
+              title: Text('Contact & Credits'),
               trailing: Icon(Icons.contact_mail),
             ),
           ],
@@ -119,7 +121,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _navigationTapped(int page) {
+  void navigationTapped(int page, [Diet diet]) {
+    _currentDiet = diet;
     _pageController.animateToPage(page,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
   }
