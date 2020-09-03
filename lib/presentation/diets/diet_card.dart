@@ -41,7 +41,7 @@ class DietCard extends StatelessWidget {
                     Align(
                         alignment: Alignment.bottomLeft,
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InformationMark(
                                   iconData: FontAwesomeIcons.clock,
@@ -50,8 +50,7 @@ class DietCard extends StatelessWidget {
                               InformationMark(
                                   iconData: FontAwesomeIcons.coins,
                                   text: '40zł',
-                                  color: Colors.blue[800]),
-                              SizedBox(),
+                                  color: Colors.indigo[800]),
                             ])),
                     Container(
                       padding: EdgeInsets.only(bottom: 30, top: 20),
