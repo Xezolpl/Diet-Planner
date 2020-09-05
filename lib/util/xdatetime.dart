@@ -66,5 +66,6 @@ extension XDateTime on DateTime {
       case 7:
         return 'Sunday';
     }
+    return 'Error: incompatible date format';
   }
 }

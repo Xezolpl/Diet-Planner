@@ -1,6 +1,4 @@
-import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/model/product.dart';
-import 'package:diet_planner/util/navigator.dart';
 import 'package:flutter/material.dart';
 
 class MealProductCard extends StatefulWidget {

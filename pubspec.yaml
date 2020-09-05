@@ -50,6 +50,7 @@ flutter:
   assets:
     - assets/png/food/
     - assets/png/diet_backgrounds/
+    - assets/png/account_cards/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

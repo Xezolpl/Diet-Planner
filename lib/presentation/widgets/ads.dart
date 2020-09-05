@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 
-final MOBILE_WIDE_AD_SIZE = Size(320, 50);
-final TABLET_WIDE_AD_SIZE = Size(728, 90);
-final RECTANGLE_AD_SIZE = Size(300, 250);
+const MOBILE_WIDE_AD_SIZE = Size(320, 50);
+const TABLET_WIDE_AD_SIZE = Size(728, 90);
+const RECTANGLE_AD_SIZE = Size(300, 250);
 //TODO: SAVE THE PREFFERED ADS SIZE IN THE PREFFERENCES AND LOAD IT HERE
 
 bool isTablet(BuildContext context) {

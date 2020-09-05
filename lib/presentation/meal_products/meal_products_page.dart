@@ -6,7 +6,6 @@ import 'package:diet_planner/presentation/widgets/ads.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:diet_planner/util/navigator.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_planner/util/xdatetime.dart';
 
 class MealProductsPage extends StatefulWidget {
   const MealProductsPage(this.meal, {Key key}) : super(key: key);

@@ -1,4 +1,3 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:diet_planner/model/diet.dart';
 import 'package:diet_planner/model/meal.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';

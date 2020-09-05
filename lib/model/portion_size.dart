@@ -21,7 +21,7 @@ extension XPortionSizeOptions on PortionSizeOptions {
         return 'Spoon';
       case PortionSizeOptions.HANDFUL:
         return 'Handful';
-      case PortionSizeOptions.CUSTOM:
+      default:
         return 'Custom';
     }
   }
@@ -34,7 +34,7 @@ extension XPortionSizeOptions on PortionSizeOptions {
         return {5: 'g'};
       case PortionSizeOptions.HANDFUL:
         return {30: 'g'};
-      case PortionSizeOptions.CUSTOM:
+      default:
         return {25: 'g'};
     }
   }

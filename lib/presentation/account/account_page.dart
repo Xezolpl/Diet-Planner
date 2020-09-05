@@ -19,8 +19,9 @@ class AccountPage extends StatelessWidget {
         ],
       ),
       body: Container(
+        margin: EdgeInsets.only(top: 5),
         padding: EdgeInsets.all(5),
-        child: Column(children: [
+        child: ListView(children: [
           NameDisplayRow(
               user: User(
                   uid: Uuid().v4(),
@@ -29,7 +30,7 @@ class AccountPage extends StatelessWidget {
                   photoUrl:
                       'https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png')),
           Container(
-            height: 3,
+            height: 10,
             margin: EdgeInsets.only(bottom: 15),
             child: Divider(
               thickness: 3,
@@ -49,21 +50,32 @@ class AccountPage extends StatelessWidget {
             height: 20,
           ),
           Container(
-            height: 180,
-            child: Row(
+            child: GridView(
+              primary: false,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               children: [
                 StyledActionContainer(
-                    imageUrl: 'https://cdn.wallpapersafari.com/4/76/rhsGUD.jpg',
+                    imagePath: 'assets/png/account_cards/progress_photos.png',
+                    color: Color(0xff999999),
                     label: 'Something important :P'),
                 StyledActionContainer(
-                    imageUrl: 'https://cdn.wallpapersafari.com/4/76/rhsGUD.jpg',
-                    label: 'Something important :P')
+                    imagePath: 'assets/png/account_cards/progress_photos.png',
+                    color: Color(0xff999999),
+                    label: 'Something important :P'),
+                StyledActionContainer(
+                    imagePath: 'assets/png/account_cards/progress_photos.png',
+                    color: Color(0xff999999),
+                    label: 'Something important :P'),
+                StyledActionContainer(
+                    imagePath: 'assets/png/account_cards/progress_photos.png',
+                    color: Color(0xff999999),
+                    label: 'Something important :P'),
               ],
             ),
           ),
-          StyledActionContainer(
-              imageUrl: 'https://cdn.wallpapersafari.com/4/76/rhsGUD.jpg',
-              label: 'Something important :P')
         ]),
       ),
     );
@@ -71,23 +83,41 @@ class AccountPage extends StatelessWidget {
 }
 
 class StyledActionContainer extends StatelessWidget {
-  final String imageUrl;
-  final String label;
+  final String imagePath, label;
+  final Color color;
 
   const StyledActionContainer(
-      {Key key, @required this.imageUrl, @required this.label})
+      {Key key,
+      @required this.imagePath,
+      @required this.label,
+      @required this.color})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-          margin: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(imageUrl), fit: BoxFit.fill),
-            borderRadius: BorderRadius.circular(5),
-          )),
+    var size = (MediaQuery.of(context).size.width - 20) / 2;
+    return Container(
+      width: size,
+      height: size + 30,
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: color,
+      ),
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            height: 30,
+            child: Text(label),
+          ),
+          Expanded(
+              child: Image.asset(
+            imagePath,
+            fit: BoxFit.fill,
+          ))
+        ],
+      ),
     );
   }
 }
@@ -98,31 +128,34 @@ class WeightBfBmiRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        StyledValueContainer(
-          titleText: 'Weight',
-          valueText: '${measurement != null ? measurement.weight : '-'}kg',
-          color: Colors.grey[100],
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        StyledValueContainer(
-            titleText: 'Body Fat',
-            valueText: '${measurement != null ? measurement.bodyFat : '-'}%',
-            color: Colors.amber[50]),
-        SizedBox(
-          width: 3,
-        ),
-        StyledValueContainer(
-          titleText: 'BMI',
-          valueText:
-              '${measurement != null ? double.parse(measurement.bmi.toStringAsFixed(2)) : '-'}',
-          color: Colors.grey[100],
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.all(6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          StyledValueContainer(
+            titleText: 'Weight',
+            valueText: '${measurement != null ? measurement.weight : '-'}kg',
+            color: Colors.grey[100],
+          ),
+          SizedBox(
+            width: 3,
+          ),
+          StyledValueContainer(
+              titleText: 'Body Fat',
+              valueText: '${measurement != null ? measurement.bodyFat : '-'}%',
+              color: Colors.amber[50]),
+          SizedBox(
+            width: 3,
+          ),
+          StyledValueContainer(
+            titleText: 'BMI',
+            valueText:
+                '${measurement != null ? double.parse(measurement.bmi.toStringAsFixed(2)) : '-'}',
+            color: Colors.grey[100],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -191,20 +224,18 @@ class NameDisplayRow extends StatelessWidget {
           SizedBox(
             width: 30,
           ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  user.name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  user.emailAddress,
-                  style: TextStyle(fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                user.name,
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
+              Text(
+                user.emailAddress,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              ),
+            ],
           ),
         ],
       ),
