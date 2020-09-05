@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:diet_planner/model/measurement.dart';
 import 'package:diet_planner/model/user.dart';
 import 'package:flutter/material.dart';
@@ -59,12 +60,12 @@ class AccountPage extends StatelessWidget {
               children: [
                 StyledActionContainer(
                     imagePath: 'assets/png/account_cards/progress_photos.png',
-                    color: Color(0xff999999),
-                    label: 'Something important :P'),
+                    color: Colors.teal[200],
+                    label: 'Progress photos'),
                 StyledActionContainer(
-                    imagePath: 'assets/png/account_cards/progress_photos.png',
-                    color: Color(0xff999999),
-                    label: 'Something important :P'),
+                    imagePath: 'assets/png/account_cards/measurement.png',
+                    color: Colors.brown[300],
+                    label: 'Measurements'),
                 StyledActionContainer(
                     imagePath: 'assets/png/account_cards/progress_photos.png',
                     color: Color(0xff999999),
@@ -101,15 +102,26 @@ class StyledActionContainer extends StatelessWidget {
       height: size + 30,
       margin: EdgeInsets.all(5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10),
         color: color,
       ),
       child: Column(
         children: [
           Container(
             alignment: Alignment.center,
-            height: 30,
-            child: Text(label),
+            height: 40,
+            child: AutoSizeText(
+              label,
+              maxLines: 1,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w800,
+                  color: Color.fromRGBO(243, 244, 255, 1),
+                  shadows: [
+                    Shadow(color: Color(0xff7f7f7f), offset: Offset(2, 2)),
+                  ]),
+            ),
           ),
           Expanded(
               child: Image.asset(
