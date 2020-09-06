@@ -57,24 +57,7 @@ class AccountPage extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              children: [
-                StyledActionContainer(
-                    imagePath: 'assets/png/account_cards/progress_photos.png',
-                    color: Colors.teal[200],
-                    label: 'Progress photos'),
-                StyledActionContainer(
-                    imagePath: 'assets/png/account_cards/measurement.png',
-                    color: Colors.brown[300],
-                    label: 'Measurements'),
-                StyledActionContainer(
-                    imagePath: 'assets/png/account_cards/progress_photos.png',
-                    color: Color(0xff999999),
-                    label: 'Something important :P'),
-                StyledActionContainer(
-                    imagePath: 'assets/png/account_cards/progress_photos.png',
-                    color: Color(0xff999999),
-                    label: 'Something important :P'),
-              ],
+              children: getActionContainers(),
             ),
           ),
         ]),
@@ -82,6 +65,33 @@ class AccountPage extends StatelessWidget {
     );
   }
 }
+
+List<Widget> getActionContainers() => [
+      StyledActionContainer(
+          imagePath: 'assets/png/account_cards/progress.png',
+          color: Colors.teal[200],
+          label: 'Progress photos'),
+      StyledActionContainer(
+          imagePath: 'assets/png/account_cards/goal.png',
+          color: Colors.blueGrey[300],
+          label: 'Goals'),
+      StyledActionContainer(
+          imagePath: 'assets/png/account_cards/measurement.png',
+          color: Colors.brown[300],
+          label: 'Measurements'),
+      StyledActionContainer(
+          imagePath: 'assets/png/account_cards/calculator.png',
+          color: Colors.lime[800],
+          label: 'Calculators'),
+      StyledActionContainer(
+          imagePath: 'assets/png/account_cards/shopping-list.png',
+          color: Colors.yellow[800],
+          label: 'Shopping list'),
+      StyledActionContainer(
+          imagePath: 'assets/png/account_cards/programmer.png',
+          color: Colors.pink[300],
+          label: 'Contact & About'),
+    ];
 
 class StyledActionContainer extends StatelessWidget {
   final String imagePath, label;
@@ -196,18 +206,23 @@ class StyledValueContainer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
+            AutoSizeText(
               '$titleText',
               textAlign: TextAlign.center,
+              maxLines: 1,
               style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'ArchivoNarrow'),
             ),
-            Text(
+            AutoSizeText(
               '$valueText',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, fontFamily: 'Signika'),
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 17,
+                fontFamily: 'Signika',
+              ),
             ),
           ],
         ),
@@ -239,13 +254,13 @@ class NameDisplayRow extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              AutoSizeText(
                 user.name,
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              Text(
+              AutoSizeText(
                 user.emailAddress,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
               ),
             ],
           ),
