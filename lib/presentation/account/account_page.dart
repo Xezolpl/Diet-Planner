@@ -9,59 +9,48 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            padding: EdgeInsets.only(right: 10),
-            onPressed: () {},
-            icon: Icon(Icons.settings),
-          )
-        ],
-      ),
-      body: Container(
-        margin: EdgeInsets.only(top: 5),
-        padding: EdgeInsets.all(5),
-        child: ListView(children: [
-          NameDisplayRow(
-              user: User(
-                  uid: Uuid().v4(),
-                  name: 'User',
-                  emailAddress: 'user@gmail.com',
-                  photoUrl:
-                      'https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png')),
-          Container(
-            height: 10,
-            margin: EdgeInsets.only(bottom: 15),
-            child: Divider(
-              thickness: 3,
-              color: Colors.amber[200],
-              indent: 10,
-              endIndent: 10,
-            ),
+    return Container(
+      margin: EdgeInsets.only(top: 5),
+      padding: EdgeInsets.all(5),
+      child: ListView(children: [
+        NameDisplayRow(
+            user: User(
+                uid: Uuid().v4(),
+                name: 'User',
+                emailAddress: 'user@gmail.com',
+                photoUrl:
+                    'https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png')),
+        Container(
+          height: 10,
+          margin: EdgeInsets.only(bottom: 15),
+          child: Divider(
+            thickness: 3,
+            color: Colors.amber[200],
+            indent: 10,
+            endIndent: 10,
           ),
-          WeightBfBmiRow(Measurement(
-              date: DateTime.now(),
-              weight: 70,
-              bodyFat: 15.5,
-              height: 173,
-              bmi: 23.5,
-              parties: {})),
-          SizedBox(
-            height: 20,
+        ),
+        WeightBfBmiRow(Measurement(
+            date: DateTime.now(),
+            weight: 70,
+            bodyFat: 15.5,
+            height: 173,
+            bmi: 23.5,
+            parties: {})),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          child: GridView(
+            primary: false,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            children: getActionContainers(),
           ),
-          Container(
-            child: GridView(
-              primary: false,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              children: getActionContainers(),
-            ),
-          ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }

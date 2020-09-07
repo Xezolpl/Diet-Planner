@@ -1,4 +1,5 @@
 import 'package:diet_planner/model/diet.dart';
+import 'package:diet_planner/presentation/account/account_page.dart';
 import 'package:diet_planner/presentation/diets/diets_page.dart';
 import 'package:diet_planner/presentation/meal_plan/meal_plan_page.dart';
 import 'package:flutter/material.dart';
@@ -22,64 +23,12 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //TODO: Switching beetwen days mechanic
-      appBar: _page == 0
-          ? AppBar(
-              centerTitle: true,
-              title: Row(mainAxisSize: MainAxisSize.min, children: [
-                IconButton(
-                  iconSize: 32,
-                  onPressed: () {
-                    setState(() {
-                      _selectedDate = _selectedDate.subtract(Duration(days: 1));
-                    });
-                  },
-                  icon: Icon(
-                    Icons.arrow_left,
-                  ),
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      _selectedDate.printAdverbOfTimeOrDate(),
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Text(
-                      _selectedDate.printWeekday(),
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-                IconButton(
-                  iconSize: 32,
-                  onPressed: () {
-                    setState(() {
-                      _selectedDate = _selectedDate.add(Duration(days: 1));
-                    });
-                  },
-                  icon: Icon(
-                    Icons.arrow_right,
-                  ),
-                ),
-              ]),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  iconSize: 28,
-                  onPressed: () {},
-                )
-              ],
-            )
-          : AppBar(),
+      appBar: getAppbarForPage(_page),
       body: PageView(
         children: <Widget>[
           MealPlanPage(_currentDiet),
           DietsPage(this),
+          AccountPage(),
         ],
         controller: _pageController,
         onPageChanged: (int index) {
@@ -100,26 +49,86 @@ class HomePageState extends State<HomePage> {
             title: Text('Diets'),
             icon: Icon(Icons.content_paste),
           ),
+          BottomNavigationBarItem(
+            title: Text('Account'),
+            icon: Icon(Icons.account_circle),
+          ),
         ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            Container(width: double.infinity, height: 130, color: Colors.amber),
-            ListTile(
-              title: Text('Account'),
-              trailing: Icon(Icons.account_circle),
-              onTap: () => navigateToAccountPage(context),
-            ),
-            ListTile(
-              title: Text('Contact & Credits'),
-              trailing: Icon(Icons.contact_mail),
-            ),
-          ],
-        ),
       ),
     );
   }
+
+  PreferredSizeWidget getAppbarForPage(int page) {
+    switch (page) {
+      case 0:
+        return getMealPlanAppBar();
+      case 1:
+        return AppBar();
+      case 2:
+        return AppBar(
+          actions: [
+            IconButton(
+              padding: EdgeInsets.only(right: 10),
+              onPressed: () {},
+              icon: Icon(Icons.settings),
+            )
+          ],
+        );
+    }
+  }
+
+  Widget getMealPlanAppBar() => AppBar(
+        centerTitle: true,
+        title: Row(mainAxisSize: MainAxisSize.min, children: [
+          IconButton(
+            iconSize: 32,
+            onPressed: () {
+              setState(() {
+                _selectedDate = _selectedDate.subtract(Duration(days: 1));
+              });
+            },
+            icon: Icon(
+              Icons.arrow_left,
+            ),
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                _selectedDate.printAdverbOfTimeOrDate(),
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Text(
+                _selectedDate.printWeekday(),
+                style: TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+          IconButton(
+            iconSize: 32,
+            onPressed: () {
+              setState(() {
+                _selectedDate = _selectedDate.add(Duration(days: 1));
+              });
+            },
+            icon: Icon(
+              Icons.arrow_right,
+            ),
+          ),
+        ]),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.calendar_today),
+            iconSize: 28,
+            onPressed: () {},
+          )
+        ],
+      );
 
   void navigationTapped(int page, [Diet diet]) {
     _currentDiet = diet;
