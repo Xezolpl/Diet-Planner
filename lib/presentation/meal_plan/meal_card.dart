@@ -1,6 +1,6 @@
-import 'package:diet_planner/model/meal.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_planner/util/navigator.dart';
+import 'package:diet_planner/presentation/util/navigator.dart';
 
 class MealCard extends StatelessWidget {
   const MealCard({@required this.meal, Key key}) : super(key: key);

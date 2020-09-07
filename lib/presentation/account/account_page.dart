@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:diet_planner/model/measurement.dart';
-import 'package:diet_planner/model/user.dart';
+import 'package:diet_planner/domain/entities/measurement.dart';
+import 'package:diet_planner/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 

@@ -1,4 +1,4 @@
-import 'package:diet_planner/model/portion_size.dart';
+import 'package:diet_planner/domain/entities/portion_size.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/outline_border_text_field.dart';

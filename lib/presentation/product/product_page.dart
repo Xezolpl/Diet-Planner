@@ -1,5 +1,5 @@
-import 'package:diet_planner/model/meal.dart';
-import 'package:diet_planner/model/product.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
+import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/presentation/product/portions/portions_view.dart';
 
 import 'package:diet_planner/presentation/widgets/units_dropdown_button.dart';

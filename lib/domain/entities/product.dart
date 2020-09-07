@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:diet_planner/model/nutrition.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
+
+import 'nutrition.dart';
 
 part 'product.freezed.dart';
 

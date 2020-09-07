@@ -1,10 +1,10 @@
-import 'package:diet_planner/model/meal.dart';
-import 'package:diet_planner/model/nutrition.dart';
-import 'package:diet_planner/model/product.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
+import 'package:diet_planner/domain/entities/nutrition.dart';
+import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/presentation/meal_products/meal_product_card.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
-import 'package:diet_planner/util/navigator.dart';
+import 'package:diet_planner/presentation/util/navigator.dart';
 import 'package:flutter/material.dart';
 
 class MealProductsPage extends StatefulWidget {

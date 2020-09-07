@@ -1,4 +1,4 @@
-import 'package:diet_planner/model/diet.dart';
+import 'package:diet_planner/domain/entities/diet.dart';
 import 'package:diet_planner/presentation/home/home_page.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
 import 'package:flutter/material.dart';

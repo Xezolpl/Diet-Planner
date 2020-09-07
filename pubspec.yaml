@@ -36,6 +36,7 @@ dependencies:
   permission_handler: ^5.0.1+1
   data_connection_checker: ^0.3.4
   auto_size_text: ^2.1.0
+  dartz: ^0.9.1
 
 dev_dependencies:
   flutter_test:
