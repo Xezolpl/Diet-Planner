@@ -8,6 +8,26 @@ import 'package:diet_planner/domain/repositories/products_repository.dart';
 
 typedef Future<Product> ProductFromDatabaseOrApi();
 
+class ApiProductDataSource {
+  Future<Product> getProduct(int barcode) {
+    return null;
+  }
+}
+
+class DatabaseProductDataSource {
+  Future<Product> getProduct(int barcode) {
+    return null;
+  }
+}
+
+class LocalProductDataSource {
+  bool hasProduct(int barcode) {
+    return true;
+  }
+
+  void cacheProduct(Product product) {}
+}
+
 class ProductRepositoryImpl implements ProductRepository {
   final ApiProductDataSource apiProductDataSource;
   final DatabaseProductDataSource remoteProductDataSource;
