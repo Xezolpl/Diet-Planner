@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:diet_planner/domain/core/failures.dart';
-import 'package:diet_planner/domain/core/params.dart';
-import 'package:diet_planner/domain/core/usecase.dart';
+import 'package:diet_planner/core/error/failures.dart';
+import 'package:diet_planner/core/params.dart';
+import 'package:diet_planner/domain/usecases/usecase.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/domain/repositories/products_repository.dart';
 
@@ -13,6 +13,6 @@ class SearchForProductsUseCase
 
   @override
   Future<Either<Failure, List<Product>>> call(ProductQueryParams params) async {
-    return await _repository.searchForProducts(params.name);
+    return await _repository.searchForProducts(params);
   }
 }

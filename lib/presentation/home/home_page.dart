@@ -3,7 +3,7 @@ import 'package:diet_planner/presentation/account/account_page.dart';
 import 'package:diet_planner/presentation/diets/diets_page.dart';
 import 'package:diet_planner/presentation/meal_plan/meal_plan_page.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_planner/domain/core/xdatetime.dart';
+import 'package:diet_planner/core/xdatetime.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
