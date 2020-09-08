@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-part 'nutrition.freezed.dart';
+part 'nutrients.freezed.dart';
 
 @freezed
-abstract class Nutrition with _$Nutrition {
-  const factory Nutrition(
+abstract class Nutrients with _$Nutrients {
+  const factory Nutrients(
     int kcal,
     double carbohydrates,
     double proteins,
@@ -48,7 +48,7 @@ abstract class Nutrition with _$Nutrition {
     double fluorine,
     double selenium,
     double iodine,
-  }) = _Nutrition;
+  }) = _Nutrients;
 
-  factory Nutrition.empty() => Nutrition(0, 0, 0, 0);
+  factory Nutrients.empty() => Nutrients(0, 0, 0, 0);
 }

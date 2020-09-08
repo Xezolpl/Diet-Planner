@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'nutrition.dart';
+part of 'nutrients.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,11 +9,11 @@ part of 'nutrition.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$NutritionTearOff {
-  const _$NutritionTearOff();
+class _$NutrientsTearOff {
+  const _$NutrientsTearOff();
 
 // ignore: unused_element
-  _Nutrition call(int kcal, double carbohydrates, double proteins, double fats,
+  _Nutrients call(int kcal, double carbohydrates, double proteins, double fats,
       {double sugars,
       double salt,
       double saturated,
@@ -52,7 +52,7 @@ class _$NutritionTearOff {
       double fluorine,
       double selenium,
       double iodine}) {
-    return _Nutrition(
+    return _Nutrients(
       kcal,
       carbohydrates,
       proteins,
@@ -100,9 +100,9 @@ class _$NutritionTearOff {
 }
 
 // ignore: unused_element
-const $Nutrition = _$NutritionTearOff();
+const $Nutrients = _$NutrientsTearOff();
 
-mixin _$Nutrition {
+mixin _$Nutrients {
   int get kcal;
   double get carbohydrates;
   double get proteins;
@@ -146,12 +146,12 @@ mixin _$Nutrition {
   double get selenium;
   double get iodine;
 
-  $NutritionCopyWith<Nutrition> get copyWith;
+  $NutrientsCopyWith<Nutrients> get copyWith;
 }
 
-abstract class $NutritionCopyWith<$Res> {
-  factory $NutritionCopyWith(Nutrition value, $Res Function(Nutrition) then) =
-      _$NutritionCopyWithImpl<$Res>;
+abstract class $NutrientsCopyWith<$Res> {
+  factory $NutrientsCopyWith(Nutrients value, $Res Function(Nutrients) then) =
+      _$NutrientsCopyWithImpl<$Res>;
   $Res call(
       {int kcal,
       double carbohydrates,
@@ -197,12 +197,12 @@ abstract class $NutritionCopyWith<$Res> {
       double iodine});
 }
 
-class _$NutritionCopyWithImpl<$Res> implements $NutritionCopyWith<$Res> {
-  _$NutritionCopyWithImpl(this._value, this._then);
+class _$NutrientsCopyWithImpl<$Res> implements $NutrientsCopyWith<$Res> {
+  _$NutrientsCopyWithImpl(this._value, this._then);
 
-  final Nutrition _value;
+  final Nutrients _value;
   // ignore: unused_field
-  final $Res Function(Nutrition) _then;
+  final $Res Function(Nutrients) _then;
 
   @override
   $Res call({
@@ -305,10 +305,10 @@ class _$NutritionCopyWithImpl<$Res> implements $NutritionCopyWith<$Res> {
   }
 }
 
-abstract class _$NutritionCopyWith<$Res> implements $NutritionCopyWith<$Res> {
-  factory _$NutritionCopyWith(
-          _Nutrition value, $Res Function(_Nutrition) then) =
-      __$NutritionCopyWithImpl<$Res>;
+abstract class _$NutrientsCopyWith<$Res> implements $NutrientsCopyWith<$Res> {
+  factory _$NutrientsCopyWith(
+          _Nutrients value, $Res Function(_Nutrients) then) =
+      __$NutrientsCopyWithImpl<$Res>;
   @override
   $Res call(
       {int kcal,
@@ -355,13 +355,13 @@ abstract class _$NutritionCopyWith<$Res> implements $NutritionCopyWith<$Res> {
       double iodine});
 }
 
-class __$NutritionCopyWithImpl<$Res> extends _$NutritionCopyWithImpl<$Res>
-    implements _$NutritionCopyWith<$Res> {
-  __$NutritionCopyWithImpl(_Nutrition _value, $Res Function(_Nutrition) _then)
-      : super(_value, (v) => _then(v as _Nutrition));
+class __$NutrientsCopyWithImpl<$Res> extends _$NutrientsCopyWithImpl<$Res>
+    implements _$NutrientsCopyWith<$Res> {
+  __$NutrientsCopyWithImpl(_Nutrients _value, $Res Function(_Nutrients) _then)
+      : super(_value, (v) => _then(v as _Nutrients));
 
   @override
-  _Nutrition get _value => super._value as _Nutrition;
+  _Nutrients get _value => super._value as _Nutrients;
 
   @override
   $Res call({
@@ -408,7 +408,7 @@ class __$NutritionCopyWithImpl<$Res> extends _$NutritionCopyWithImpl<$Res>
     Object selenium = freezed,
     Object iodine = freezed,
   }) {
-    return _then(_Nutrition(
+    return _then(_Nutrients(
       kcal == freezed ? _value.kcal : kcal as int,
       carbohydrates == freezed ? _value.carbohydrates : carbohydrates as double,
       proteins == freezed ? _value.proteins : proteins as double,
@@ -462,8 +462,8 @@ class __$NutritionCopyWithImpl<$Res> extends _$NutritionCopyWithImpl<$Res>
   }
 }
 
-class _$_Nutrition implements _Nutrition {
-  const _$_Nutrition(this.kcal, this.carbohydrates, this.proteins, this.fats,
+class _$_Nutrients implements _Nutrients {
+  const _$_Nutrients(this.kcal, this.carbohydrates, this.proteins, this.fats,
       {this.sugars,
       this.salt,
       this.saturated,
@@ -594,13 +594,13 @@ class _$_Nutrition implements _Nutrition {
 
   @override
   String toString() {
-    return 'Nutrition(kcal: $kcal, carbohydrates: $carbohydrates, proteins: $proteins, fats: $fats, sugars: $sugars, salt: $salt, saturated: $saturated, monounsaturated: $monounsaturated, poliunsaturated: $poliunsaturated, omega3: $omega3, omega6: $omega6, ala: $ala, epa: $epa, dha: $dha, fibre: $fibre, cholesterol: $cholesterol, caffeine: $caffeine, vitaminA: $vitaminA, vitaminB1: $vitaminB1, vitaminB2: $vitaminB2, vitaminB3: $vitaminB3, vitaminB4: $vitaminB4, vitaminB5: $vitaminB5, vitaminB6: $vitaminB6, vitaminB7: $vitaminB7, vitaminB9: $vitaminB9, vitaminB12: $vitaminB12, vitaminC: $vitaminC, vitaminD: $vitaminD, vitaminE: $vitaminE, vitaminK: $vitaminK, sodium: $sodium, potassium: $potassium, calcium: $calcium, magnesium: $magnesium, phosphorous: $phosphorous, iron: $iron, copper: $copper, zinc: $zinc, fluorine: $fluorine, selenium: $selenium, iodine: $iodine)';
+    return 'Nutrients(kcal: $kcal, carbohydrates: $carbohydrates, proteins: $proteins, fats: $fats, sugars: $sugars, salt: $salt, saturated: $saturated, monounsaturated: $monounsaturated, poliunsaturated: $poliunsaturated, omega3: $omega3, omega6: $omega6, ala: $ala, epa: $epa, dha: $dha, fibre: $fibre, cholesterol: $cholesterol, caffeine: $caffeine, vitaminA: $vitaminA, vitaminB1: $vitaminB1, vitaminB2: $vitaminB2, vitaminB3: $vitaminB3, vitaminB4: $vitaminB4, vitaminB5: $vitaminB5, vitaminB6: $vitaminB6, vitaminB7: $vitaminB7, vitaminB9: $vitaminB9, vitaminB12: $vitaminB12, vitaminC: $vitaminC, vitaminD: $vitaminD, vitaminE: $vitaminE, vitaminK: $vitaminK, sodium: $sodium, potassium: $potassium, calcium: $calcium, magnesium: $magnesium, phosphorous: $phosphorous, iron: $iron, copper: $copper, zinc: $zinc, fluorine: $fluorine, selenium: $selenium, iodine: $iodine)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Nutrition &&
+        (other is _Nutrients &&
             (identical(other.kcal, kcal) ||
                 const DeepCollectionEquality().equals(other.kcal, kcal)) &&
             (identical(other.carbohydrates, carbohydrates) ||
@@ -735,12 +735,12 @@ class _$_Nutrition implements _Nutrition {
       const DeepCollectionEquality().hash(iodine);
 
   @override
-  _$NutritionCopyWith<_Nutrition> get copyWith =>
-      __$NutritionCopyWithImpl<_Nutrition>(this, _$identity);
+  _$NutrientsCopyWith<_Nutrients> get copyWith =>
+      __$NutrientsCopyWithImpl<_Nutrients>(this, _$identity);
 }
 
-abstract class _Nutrition implements Nutrition {
-  const factory _Nutrition(
+abstract class _Nutrients implements Nutrients {
+  const factory _Nutrients(
       int kcal, double carbohydrates, double proteins, double fats,
       {double sugars,
       double salt,
@@ -779,7 +779,7 @@ abstract class _Nutrition implements Nutrition {
       double zinc,
       double fluorine,
       double selenium,
-      double iodine}) = _$_Nutrition;
+      double iodine}) = _$_Nutrients;
 
   @override
   int get kcal;
@@ -866,5 +866,5 @@ abstract class _Nutrition implements Nutrition {
   @override
   double get iodine;
   @override
-  _$NutritionCopyWith<_Nutrition> get copyWith;
+  _$NutrientsCopyWith<_Nutrients> get copyWith;
 }

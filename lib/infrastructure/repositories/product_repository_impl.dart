@@ -5,6 +5,7 @@ import 'package:diet_planner/core/network_info.dart';
 import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/domain/repositories/products_repository.dart';
+import 'package:diet_planner/infrastructure/datasources/local_product_datasource.dart';
 
 typedef Future<Product> ProductFromDatabaseOrApi();
 
@@ -18,14 +19,6 @@ class DatabaseProductDataSource {
   Future<Product> getProduct(int barcode) {
     return null;
   }
-}
-
-class LocalProductDataSource {
-  bool hasProduct(int barcode) {
-    return true;
-  }
-
-  void cacheProduct(Product product) {}
 }
 
 class ProductRepositoryImpl implements ProductRepository {
@@ -45,7 +38,7 @@ class ProductRepositoryImpl implements ProductRepository {
     if (await networkInfo.isConnected) {
       try {
         final product = await getFromDbOrApi();
-        if (!localProductDataSource.hasProduct(barcode)) {
+        if (!await localProductDataSource.hasProduct(barcode)) {
           localProductDataSource.cacheProduct(product);
         }
         return Right(product);
@@ -75,11 +68,15 @@ class ProductRepositoryImpl implements ProductRepository {
     });
   }
 
-  ///Get cached product (probably SQLite database)
+  ///Get cached product from SQLite Database
   @override
-  Future<Either<Failure, Product>> getProductLocal(int barcode) {
-    // TODO: implement getProductLocal
-    throw UnimplementedError();
+  Future<Either<Failure, Product>> getProductLocal(int barcode) async {
+    try {
+      final product = await localProductDataSource.getProduct(barcode);
+      return Right(product);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   ///Searching only in Api or local (if offline)
@@ -87,13 +84,6 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, List<Product>>> searchForProducts(
       ProductQueryParams params) async {
     // TODO: implement searchForProducts
-    throw UnimplementedError();
-  }
-
-  ///Add product to sqlite db
-  @override
-  Future<Either<Failure, Unit>> cacheProductToLocal(Product product) {
-    // TODO: implement cacheProductToLocal
     throw UnimplementedError();
   }
 }

@@ -8,6 +8,9 @@ part of 'product.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+Product _$ProductFromJson(Map<String, dynamic> json) {
+  return _Product.fromJson(json);
+}
 
 class _$ProductTearOff {
   const _$ProductTearOff();
@@ -16,14 +19,14 @@ class _$ProductTearOff {
   _Product call(
       {@required String id,
       @required String name,
-      @required String category,
-      @required Nutrition nutrition,
+      @required List<String> categories,
+      @required Nutrients nutrients,
       @required double weight}) {
     return _Product(
       id: id,
       name: name,
-      category: category,
-      nutrition: nutrition,
+      categories: categories,
+      nutrients: nutrients,
       weight: weight,
     );
   }
@@ -35,10 +38,11 @@ const $Product = _$ProductTearOff();
 mixin _$Product {
   String get id;
   String get name;
-  String get category;
-  Nutrition get nutrition;
+  List<String> get categories;
+  Nutrients get nutrients;
   double get weight;
 
+  Map<String, dynamic> toJson();
   $ProductCopyWith<Product> get copyWith;
 }
 
@@ -48,11 +52,11 @@ abstract class $ProductCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      String category,
-      Nutrition nutrition,
+      List<String> categories,
+      Nutrients nutrients,
       double weight});
 
-  $NutritionCopyWith<$Res> get nutrition;
+  $NutrientsCopyWith<$Res> get nutrients;
 }
 
 class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
@@ -66,27 +70,29 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object category = freezed,
-    Object nutrition = freezed,
+    Object categories = freezed,
+    Object nutrients = freezed,
     Object weight = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      category: category == freezed ? _value.category : category as String,
-      nutrition:
-          nutrition == freezed ? _value.nutrition : nutrition as Nutrition,
+      categories: categories == freezed
+          ? _value.categories
+          : categories as List<String>,
+      nutrients:
+          nutrients == freezed ? _value.nutrients : nutrients as Nutrients,
       weight: weight == freezed ? _value.weight : weight as double,
     ));
   }
 
   @override
-  $NutritionCopyWith<$Res> get nutrition {
-    if (_value.nutrition == null) {
+  $NutrientsCopyWith<$Res> get nutrients {
+    if (_value.nutrients == null) {
       return null;
     }
-    return $NutritionCopyWith<$Res>(_value.nutrition, (value) {
-      return _then(_value.copyWith(nutrition: value));
+    return $NutrientsCopyWith<$Res>(_value.nutrients, (value) {
+      return _then(_value.copyWith(nutrients: value));
     });
   }
 }
@@ -98,12 +104,12 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      String category,
-      Nutrition nutrition,
+      List<String> categories,
+      Nutrients nutrients,
       double weight});
 
   @override
-  $NutritionCopyWith<$Res> get nutrition;
+  $NutrientsCopyWith<$Res> get nutrients;
 }
 
 class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
@@ -118,48 +124,54 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object category = freezed,
-    Object nutrition = freezed,
+    Object categories = freezed,
+    Object nutrients = freezed,
     Object weight = freezed,
   }) {
     return _then(_Product(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      category: category == freezed ? _value.category : category as String,
-      nutrition:
-          nutrition == freezed ? _value.nutrition : nutrition as Nutrition,
+      categories: categories == freezed
+          ? _value.categories
+          : categories as List<String>,
+      nutrients:
+          nutrients == freezed ? _value.nutrients : nutrients as Nutrients,
       weight: weight == freezed ? _value.weight : weight as double,
     ));
   }
 }
 
+@JsonSerializable()
 class _$_Product implements _Product {
   const _$_Product(
       {@required this.id,
       @required this.name,
-      @required this.category,
-      @required this.nutrition,
+      @required this.categories,
+      @required this.nutrients,
       @required this.weight})
       : assert(id != null),
         assert(name != null),
-        assert(category != null),
-        assert(nutrition != null),
+        assert(categories != null),
+        assert(nutrients != null),
         assert(weight != null);
+
+  factory _$_Product.fromJson(Map<String, dynamic> json) =>
+      _$_$_ProductFromJson(json);
 
   @override
   final String id;
   @override
   final String name;
   @override
-  final String category;
+  final List<String> categories;
   @override
-  final Nutrition nutrition;
+  final Nutrients nutrients;
   @override
   final double weight;
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, category: $category, nutrition: $nutrition, weight: $weight)';
+    return 'Product(id: $id, name: $name, categories: $categories, nutrients: $nutrients, weight: $weight)';
   }
 
   @override
@@ -170,12 +182,12 @@ class _$_Product implements _Product {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.category, category) ||
+            (identical(other.categories, categories) ||
                 const DeepCollectionEquality()
-                    .equals(other.category, category)) &&
-            (identical(other.nutrition, nutrition) ||
+                    .equals(other.categories, categories)) &&
+            (identical(other.nutrients, nutrients) ||
                 const DeepCollectionEquality()
-                    .equals(other.nutrition, nutrition)) &&
+                    .equals(other.nutrients, nutrients)) &&
             (identical(other.weight, weight) ||
                 const DeepCollectionEquality().equals(other.weight, weight)));
   }
@@ -185,31 +197,38 @@ class _$_Product implements _Product {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(category) ^
-      const DeepCollectionEquality().hash(nutrition) ^
+      const DeepCollectionEquality().hash(categories) ^
+      const DeepCollectionEquality().hash(nutrients) ^
       const DeepCollectionEquality().hash(weight);
 
   @override
   _$ProductCopyWith<_Product> get copyWith =>
       __$ProductCopyWithImpl<_Product>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ProductToJson(this);
+  }
 }
 
 abstract class _Product implements Product {
   const factory _Product(
       {@required String id,
       @required String name,
-      @required String category,
-      @required Nutrition nutrition,
+      @required List<String> categories,
+      @required Nutrients nutrients,
       @required double weight}) = _$_Product;
+
+  factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
 
   @override
   String get id;
   @override
   String get name;
   @override
-  String get category;
+  List<String> get categories;
   @override
-  Nutrition get nutrition;
+  Nutrients get nutrients;
   @override
   double get weight;
   @override

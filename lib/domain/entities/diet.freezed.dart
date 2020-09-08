@@ -16,7 +16,7 @@ class _$DietTearOff {
   _Diet call(
       {@required String id,
       @required String name,
-      @required Nutrition overralNutrition,
+      @required Nutrients overralNutrition,
       @required List<Meal> meals}) {
     return _Diet(
       id: id,
@@ -33,7 +33,7 @@ const $Diet = _$DietTearOff();
 mixin _$Diet {
   String get id;
   String get name;
-  Nutrition get overralNutrition;
+  Nutrients get overralNutrition;
   List<Meal> get meals;
 
   $DietCopyWith<Diet> get copyWith;
@@ -43,9 +43,9 @@ abstract class $DietCopyWith<$Res> {
   factory $DietCopyWith(Diet value, $Res Function(Diet) then) =
       _$DietCopyWithImpl<$Res>;
   $Res call(
-      {String id, String name, Nutrition overralNutrition, List<Meal> meals});
+      {String id, String name, Nutrients overralNutrition, List<Meal> meals});
 
-  $NutritionCopyWith<$Res> get overralNutrition;
+  $NutrientsCopyWith<$Res> get overralNutrition;
 }
 
 class _$DietCopyWithImpl<$Res> implements $DietCopyWith<$Res> {
@@ -67,17 +67,17 @@ class _$DietCopyWithImpl<$Res> implements $DietCopyWith<$Res> {
       name: name == freezed ? _value.name : name as String,
       overralNutrition: overralNutrition == freezed
           ? _value.overralNutrition
-          : overralNutrition as Nutrition,
+          : overralNutrition as Nutrients,
       meals: meals == freezed ? _value.meals : meals as List<Meal>,
     ));
   }
 
   @override
-  $NutritionCopyWith<$Res> get overralNutrition {
+  $NutrientsCopyWith<$Res> get overralNutrition {
     if (_value.overralNutrition == null) {
       return null;
     }
-    return $NutritionCopyWith<$Res>(_value.overralNutrition, (value) {
+    return $NutrientsCopyWith<$Res>(_value.overralNutrition, (value) {
       return _then(_value.copyWith(overralNutrition: value));
     });
   }
@@ -88,10 +88,10 @@ abstract class _$DietCopyWith<$Res> implements $DietCopyWith<$Res> {
       __$DietCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id, String name, Nutrition overralNutrition, List<Meal> meals});
+      {String id, String name, Nutrients overralNutrition, List<Meal> meals});
 
   @override
-  $NutritionCopyWith<$Res> get overralNutrition;
+  $NutrientsCopyWith<$Res> get overralNutrition;
 }
 
 class __$DietCopyWithImpl<$Res> extends _$DietCopyWithImpl<$Res>
@@ -114,7 +114,7 @@ class __$DietCopyWithImpl<$Res> extends _$DietCopyWithImpl<$Res>
       name: name == freezed ? _value.name : name as String,
       overralNutrition: overralNutrition == freezed
           ? _value.overralNutrition
-          : overralNutrition as Nutrition,
+          : overralNutrition as Nutrients,
       meals: meals == freezed ? _value.meals : meals as List<Meal>,
     ));
   }
@@ -136,7 +136,7 @@ class _$_Diet implements _Diet {
   @override
   final String name;
   @override
-  final Nutrition overralNutrition;
+  final Nutrients overralNutrition;
   @override
   final List<Meal> meals;
 
@@ -177,7 +177,7 @@ abstract class _Diet implements Diet {
   const factory _Diet(
       {@required String id,
       @required String name,
-      @required Nutrition overralNutrition,
+      @required Nutrients overralNutrition,
       @required List<Meal> meals}) = _$_Diet;
 
   @override
@@ -185,7 +185,7 @@ abstract class _Diet implements Diet {
   @override
   String get name;
   @override
-  Nutrition get overralNutrition;
+  Nutrients get overralNutrition;
   @override
   List<Meal> get meals;
   @override

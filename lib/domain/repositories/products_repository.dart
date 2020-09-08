@@ -11,7 +11,6 @@ abstract class ProductRepository {
 
   //LOCAL SQLITE DATABASE
   Future<Either<Failure, Product>> getProductLocal(int barcode);
-  Future<Either<Failure, Unit>> cacheProductToLocal(Product product);
 
   //SERVER DATABASE
   Future<Either<Failure, Product>> getProductRemote(int barcode);

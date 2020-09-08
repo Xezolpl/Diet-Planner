@@ -1,5 +1,5 @@
 import 'package:diet_planner/domain/entities/meal.dart';
-import 'package:diet_planner/domain/entities/nutrition.dart';
+import 'package:diet_planner/domain/entities/nutrients.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/presentation/meal_products/meal_product_card.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
@@ -69,8 +69,8 @@ class _MealProductsPageState extends State<MealProductsPage> {
                     final product = Product(
                         id: 'id',
                         name: 'Jabłko czerwone',
-                        category: 'fruit',
-                        nutrition: Nutrition(372, 50, 12.5, 14.3),
+                        categories: ['fruit'],
+                        nutrients: Nutrients(372, 50, 12.5, 14.3),
                         weight: 100);
                     return GestureDetector(
                         onTap: () {
