@@ -29,7 +29,7 @@ class _MealProductCardState extends State<MealProductCard> {
                 width: 12,
               ),
               Image.asset(
-                getAssetPathForCategory(product.categories.first),
+                getAssetPathForCategory(product.category),
                 width: 32,
                 height: 32,
               ),
@@ -58,7 +58,7 @@ class _MealProductCardState extends State<MealProductCard> {
                           width: 16,
                         ),
                         Text(
-                          '${product.nutrients.kcal} kcal',
+                          '${product.kcal} kcal',
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],

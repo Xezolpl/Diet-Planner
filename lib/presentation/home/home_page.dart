@@ -1,9 +1,20 @@
+import 'dart:developer';
+
+import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:diet_planner/core/network_info.dart';
+import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/diet.dart';
+import 'package:diet_planner/domain/usecases/concrete_product_usecase.dart';
+import 'package:diet_planner/infrastructure/datasources/local_product_datasource.dart';
+import 'package:diet_planner/infrastructure/local_database.dart';
+import 'package:diet_planner/infrastructure/repositories/product_repository_impl.dart';
+import 'package:diet_planner/injection.dart';
 import 'package:diet_planner/presentation/account/account_page.dart';
 import 'package:diet_planner/presentation/diets/diets_page.dart';
 import 'package:diet_planner/presentation/meal_plan/meal_plan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:diet_planner/core/xdatetime.dart';
+import 'package:get_it/get_it.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -13,6 +24,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  var database;
+
   Diet _currentDiet;
   PageController _pageController;
   int _page = 0;

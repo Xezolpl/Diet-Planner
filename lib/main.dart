@@ -1,7 +1,12 @@
 import 'package:diet_planner/presentation/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+
+import 'injection.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureInjection(Environment.prod);
   runApp(MyApp());
 }
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:diet_planner/core/error/exceptions.dart';
 import 'package:diet_planner/core/error/failures.dart';
@@ -5,26 +7,18 @@ import 'package:diet_planner/core/network_info.dart';
 import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/domain/repositories/products_repository.dart';
+import 'package:diet_planner/infrastructure/datasources/api_product_datasource.dart';
+import 'package:diet_planner/infrastructure/datasources/database_product_datasource.dart';
 import 'package:diet_planner/infrastructure/datasources/local_product_datasource.dart';
+import 'package:injectable/injectable.dart';
 
 typedef Future<Product> ProductFromDatabaseOrApi();
 
-class ApiProductDataSource {
-  Future<Product> getProduct(int barcode) {
-    return null;
-  }
-}
-
-class DatabaseProductDataSource {
-  Future<Product> getProduct(int barcode) {
-    return null;
-  }
-}
-
-class ProductRepositoryImpl implements ProductRepository {
-  final ApiProductDataSource apiProductDataSource;
-  final DatabaseProductDataSource remoteProductDataSource;
-  final LocalProductDataSource localProductDataSource;
+@Injectable(as: IProductRepository)
+class ProductRepositoryImpl implements IProductRepository {
+  final IApiProductDataSource apiProductDataSource;
+  final IDatabaseProductDataSource remoteProductDataSource;
+  final ILocalProductDataSource localProductDataSource;
   final NetworkInfo networkInfo;
 
   const ProductRepositoryImpl(
@@ -34,11 +28,13 @@ class ProductRepositoryImpl implements ProductRepository {
       this.networkInfo);
 
   Future<Either<Failure, Product>> _getProductFromDbOrApi(
-      int barcode, ProductFromDatabaseOrApi getFromDbOrApi) async {
-    if (await networkInfo.isConnected) {
+      ProductDatabaseParams params,
+      ProductFromDatabaseOrApi getFromDbOrApi) async {
+    if (/*await networkInfo.isConnected*/ false) {
+      //TODO: CHANGE
       try {
         final product = await getFromDbOrApi();
-        if (!await localProductDataSource.hasProduct(barcode)) {
+        if (!await localProductDataSource.hasProduct(params)) {
           localProductDataSource.cacheProduct(product);
         }
         return Right(product);
@@ -46,14 +42,15 @@ class ProductRepositoryImpl implements ProductRepository {
         return Left(ApiFailure());
       }
     } else {
-      return await getProductLocal(barcode);
+      return await getProductLocal(params);
     }
   }
 
   ///It is used to get concrete product if we have internet connection
   @override
   Future<Either<Failure, Product>> getProductFromApi(int barcode) async {
-    return await _getProductFromDbOrApi(barcode, () {
+    return await _getProductFromDbOrApi(ProductDatabaseParams(barcode: barcode),
+        () {
       return apiProductDataSource.getProduct(barcode);
     });
   }
@@ -62,19 +59,22 @@ class ProductRepositoryImpl implements ProductRepository {
   ///1. To get e.g. Breakfast from database to the app.
   ///2. To get product from section "Yours products"
   @override
-  Future<Either<Failure, Product>> getProductRemote(int barcode) async {
-    return await _getProductFromDbOrApi(barcode, () {
-      return remoteProductDataSource.getProduct(barcode);
+  Future<Either<Failure, Product>> getProductRemote(
+      ProductDatabaseParams params) async {
+    return await _getProductFromDbOrApi(params, () {
+      return remoteProductDataSource.getProduct(params);
     });
   }
 
   ///Get cached product from SQLite Database
   @override
-  Future<Either<Failure, Product>> getProductLocal(int barcode) async {
+  Future<Either<Failure, Product>> getProductLocal(
+      ProductDatabaseParams params) async {
     try {
-      final product = await localProductDataSource.getProduct(barcode);
+      final product = await localProductDataSource.getProduct(params);
       return Right(product);
-    } on CacheException {
+    } on Exception catch (e) {
+      log(e.toString());
       return Left(CacheFailure());
     }
   }

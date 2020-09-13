@@ -1,5 +1,4 @@
 import 'package:diet_planner/domain/entities/meal.dart';
-import 'package:diet_planner/domain/entities/nutrients.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/presentation/meal_products/meal_product_card.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
@@ -66,12 +65,7 @@ class _MealProductsPageState extends State<MealProductsPage> {
                 child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    final product = Product(
-                        id: 'id',
-                        name: 'Jabłko czerwone',
-                        categories: ['fruit'],
-                        nutrients: Nutrients(372, 50, 12.5, 14.3),
-                        weight: 100);
+                    final product = Product.empty();
                     return GestureDetector(
                         onTap: () {
                           navigateToProductPage(context, product, meal);

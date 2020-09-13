@@ -4,10 +4,12 @@ import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/usecases/usecase.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/domain/repositories/products_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable()
 class SearchForProductsUseCase
     extends UseCase<List<Product>, ProductQueryParams> {
-  final ProductRepository _repository;
+  final IProductRepository _repository;
 
   SearchForProductsUseCase(this._repository);
 
