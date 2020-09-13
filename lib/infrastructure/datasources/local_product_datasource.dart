@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:diet_planner/core/error/exceptions.dart';
 import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/infrastructure/local_database.dart';
@@ -30,35 +29,40 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
 
   @override
   Future<void> insert(Product product) {
+    log('Inserting product: $product');
     return database.insert(PRODUCTS_TABLE, product.toJson());
   }
 
   @override
   Future<void> update(Product product) {
+    log('Updating product: $product');
     return database.update(PRODUCTS_TABLE, product.toJson(),
         where: 'id = ?', whereArgs: [product.id]);
   }
 
   @override
   Future<void> delete(Product product) {
+    log('Deleting product: $product');
     return database
         .delete(PRODUCTS_TABLE, where: 'id = ?', whereArgs: [product.id]);
   }
 
   @override
   Future<List<Product>> getAllProducts() async {
+    log('Get all products called');
     List<Map<String, dynamic>> records = await database.query(PRODUCTS_TABLE);
     return Future.value(records.map((json) => Product.fromJson(json)).toList());
   }
 
   @override
   Future<Product> getProduct(ProductDatabaseParams params) async {
+    log('Getting concrete product for params: $params');
     return await database
         .query(PRODUCTS_TABLE,
             where: params.getWhere(), whereArgs: params.getWhereArgs())
         .then<Product>((products) {
       //Its called products because of query syntax but there is allways only one product
-      log('Get product from SQLite database by ID: ' + products.toString());
+      log('Getting concrete product succed with: ' + products.toString());
       return Product.fromJson(products.first);
     });
   }
@@ -68,10 +72,9 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
     database.query(PRODUCTS_TABLE,
         where: 'id = ?', whereArgs: [product.id]).then((products) {
       //Its called products because of query syntax but there is allways only one product
-      log('Products in database with params: id = ${product.id}' +
-          products.toString());
+      log('Check or cache the product called for $product');
       if (products.length == 0) {
-        //cache
+        log('Cache product $product');
         insert(product);
       }
     });
@@ -79,10 +82,13 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
 
   @override
   Future<List<Product>> searchForProducts(ProductQueryParams params) {
+    log('Search for products called for params: $params');
     return database
         .query(PRODUCTS_TABLE,
             where: params.getWhere(), whereArgs: params.getWhereArgs())
-        .then<List<Product>>((products) =>
-            products.map((json) => Product.fromJson(json)).toList());
+        .then<List<Product>>((products) {
+      log('Products found $products');
+      return products.map((json) => Product.fromJson(json)).toList();
+    });
   }
 }
