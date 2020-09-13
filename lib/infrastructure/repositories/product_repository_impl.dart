@@ -47,16 +47,13 @@ class ProductRepositoryImpl implements IProductRepository {
         return Right(product);
       } on ApiException catch (e) {
         //If something got wrong in the API
-        log('ApiException caught in getProductFromApi(). Error: $e');
-        return Left(ApiFailure());
+        return Left(ApiFailure(e, 'getProductFromApi()'));
       } on ServerException catch (e) {
         //If something got wrong on server database
-        log('ServerException caught in getProductFromRemote(). Error: $e');
-        return Left(ServerFailure());
+        return Left(ServerFailure(e, 'getProductFromRemote()'));
       } on DatabaseException catch (e) {
         //If something got wrong in local database
-        log('DatabaseException caught in checkOrCache(). Error: $e');
-        return Left(CacheFailure());
+        return Left(CacheFailure(e, 'checkOrCache()'));
       }
     } else {
       //if offline
@@ -93,8 +90,7 @@ class ProductRepositoryImpl implements IProductRepository {
       final product = await localProductDataSource.getProduct(params);
       return Right(product);
     } on DatabaseException catch (e) {
-      log('DatabaseException caught in getProductLocal(). Error: $e');
-      return Left(CacheFailure());
+      return Left(CacheFailure(e, 'getProductLocal()'));
     }
   }
 
@@ -102,8 +98,17 @@ class ProductRepositoryImpl implements IProductRepository {
   @override
   Future<Either<Failure, List<Product>>> searchForProducts(
       ProductQueryParams params) async {
-    // TODO: implement searchForProducts
-    throw UnimplementedError();
+    if (await networkInfo.isConnected) {
+      //TODO: Implement searching for products in API
+    } else {
+      try {
+        log('Searching in local database for products with params: $params');
+        final products = await localProductDataSource.searchForProducts(params);
+        return Right(products);
+      } on DatabaseException catch (e) {
+        return Left(CacheFailure(e, 'searchForProducts'));
+      }
+    }
   }
 
   @override
@@ -115,11 +120,9 @@ class ProductRepositoryImpl implements IProductRepository {
       }
       return Right(unit);
     } on DatabaseException catch (e) {
-      log('DatabaseException caught in insertProduct(). Error: $e');
-      return Left(CacheFailure());
+      return Left(CacheFailure(e, 'insertProduct()'));
     } on ServerException catch (e) {
-      log('ServerException caught in insertProduct(). Error: $e');
-      return Left(ServerFailure());
+      return Left(ServerFailure(e, 'insertProduct()'));
     }
   }
 
@@ -132,11 +135,9 @@ class ProductRepositoryImpl implements IProductRepository {
       }
       return Right(unit);
     } on DatabaseException catch (e) {
-      log('DatabaseException caught in updateProduct(). Error: $e');
-      return Left(CacheFailure());
+      return Left(CacheFailure(e, 'updateProduct()'));
     } on ServerException catch (e) {
-      log('ServerException caught in updateProduct(). Error: $e');
-      return Left(ServerFailure());
+      return Left(ServerFailure(e, 'updateProduct()'));
     }
   }
 
@@ -149,11 +150,9 @@ class ProductRepositoryImpl implements IProductRepository {
       }
       return Right(unit);
     } on DatabaseException catch (e) {
-      log('DatabaseException caught in deleteProduct(). Error: $e');
-      return Left(CacheFailure());
+      return Left(CacheFailure(e, 'deleteProduct()'));
     } on ServerException catch (e) {
-      log('ServerException caught in deleteProduct(). Error: $e');
-      return Left(ServerFailure());
+      return Left(ServerFailure(e, 'deleteProduct()'));
     }
   }
 }

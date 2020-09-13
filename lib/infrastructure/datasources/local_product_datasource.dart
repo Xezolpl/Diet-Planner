@@ -69,10 +69,10 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
 
   @override
   Future<void> checkOrCache(Product product) async {
+    log('Check or cache the product called for $product');
     database.query(PRODUCTS_TABLE,
         where: 'id = ?', whereArgs: [product.id]).then((products) {
       //Its called products because of query syntax but there is allways only one product
-      log('Check or cache the product called for $product');
       if (products.length == 0) {
         log('Cache product $product');
         insert(product);
