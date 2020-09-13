@@ -10,6 +10,7 @@ import 'package:diet_planner/domain/repositories/products_repository.dart';
 import 'package:diet_planner/infrastructure/datasources/api_product_datasource.dart';
 import 'package:diet_planner/infrastructure/datasources/database_product_datasource.dart';
 import 'package:diet_planner/infrastructure/datasources/local_product_datasource.dart';
+import 'package:diet_planner/infrastructure/local_database.dart';
 import 'package:injectable/injectable.dart';
 
 typedef Future<Product> ProductFromDatabaseOrApi();
@@ -30,16 +31,17 @@ class ProductRepositoryImpl implements IProductRepository {
   Future<Either<Failure, Product>> _getProductFromDbOrApi(
       ProductDatabaseParams params,
       ProductFromDatabaseOrApi getFromDbOrApi) async {
-    if (/*await networkInfo.isConnected*/ false) {
-      //TODO: CHANGE
+    if (await networkInfo.isConnected) {
       try {
         final product = await getFromDbOrApi();
-        if (!await localProductDataSource.hasProduct(params)) {
-          localProductDataSource.cacheProduct(product);
-        }
+        localProductDataSource.checkOrCache(product);
         return Right(product);
-      } on ApiException {
-        return Left(ApiFailure());
+      } on ApiException catch (e) {
+        return Left(ApiFailure(
+            'API threw exception during getting product with params: ${params.toString()}. Error: ${e.toString()}}'));
+      } on DatabaseException catch (e) {
+        return Left(CacheFailure(
+            'Local database threw exception while checkOrCache(product) method. Error: ${e.toString()}'));
       }
     } else {
       return await getProductLocal(params);
@@ -73,9 +75,9 @@ class ProductRepositoryImpl implements IProductRepository {
     try {
       final product = await localProductDataSource.getProduct(params);
       return Right(product);
-    } on Exception catch (e) {
-      log(e.toString());
-      return Left(CacheFailure());
+    } on DatabaseException catch (e) {
+      return Left(CacheFailure(
+          'Local database threw exception while getProduct(params) method with params: ${params.toString()}. Error: ${e.toString()}'));
     }
   }
 
@@ -84,6 +86,34 @@ class ProductRepositoryImpl implements IProductRepository {
   Future<Either<Failure, List<Product>>> searchForProducts(
       ProductQueryParams params) async {
     // TODO: implement searchForProducts
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> insertProduct(Product product) async {
+    try {
+      await localProductDataSource.insert(product);
+      if (await networkInfo.isConnected) {
+        //TODOawait remoteProductDataSource.insert(product);
+      }
+      return Right(unit);
+    } on DatabaseException {
+      return Left(CacheFailure(
+          'Product ${product.toString()} actually exists in SQLite db.'));
+    } on ServerException {
+      return Left(ServerFailure('')); //TODO FAILURE
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateProduct(Product product) {
+    // TODO: implement updateProduct
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteProduct(Product product) {
+    // TODO: implement deleteProduct
     throw UnimplementedError();
   }
 }

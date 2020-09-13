@@ -8,14 +8,12 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import 'infrastructure/local_database.dart';
-import 'domain/usecases/concrete_product_usecase.dart';
 import 'infrastructure/datasources/api_product_datasource.dart';
 import 'infrastructure/datasources/database_product_datasource.dart';
 import 'infrastructure/datasources/local_product_datasource.dart';
 import 'domain/repositories/products_repository.dart';
 import 'core/network_info.dart';
 import 'infrastructure/repositories/product_repository_impl.dart';
-import 'domain/usecases/search_products_usecase.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -40,10 +38,6 @@ Future<GetIt> $initGetIt(
         get<ILocalProductDataSource>(),
         get<NetworkInfo>(),
       ));
-  gh.factory<SearchForProductsUseCase>(
-      () => SearchForProductsUseCase(get<IProductRepository>()));
-  gh.factory<GetProductUseCase>(
-      () => GetProductUseCase(get<IProductRepository>()));
   return get;
 }
 

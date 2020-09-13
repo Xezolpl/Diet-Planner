@@ -1,10 +1,13 @@
 import 'package:diet_planner/domain/entities/meal.dart';
 import 'package:diet_planner/domain/entities/product.dart';
+import 'package:diet_planner/domain/repositories/products_repository.dart';
 import 'package:diet_planner/presentation/product/portions/portions_view.dart';
 
 import 'package:diet_planner/presentation/widgets/units_dropdown_button.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
+
+import '../../injection.dart';
 
 class ProductPage extends StatefulWidget {
   final Product product;
@@ -25,7 +28,17 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getMealDateAppBar(context, meal),
+      appBar: getMealDateAppBar(context, meal, actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: IconButton(
+            icon: Icon(Icons.done),
+            onPressed: () {
+              getIt<IProductRepository>().insertProduct(product);
+            },
+          ),
+        )
+      ]),
       body: Form(
         child: GestureDetector(
           onTap: () {

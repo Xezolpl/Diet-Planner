@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:diet_planner/core/error/exceptions.dart';
 import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/infrastructure/local_database.dart';
@@ -10,10 +11,13 @@ const String PRODUCTS_TABLE = 'products';
 
 ///ABSTRACTION ON DATASOURCE
 abstract class ILocalProductDataSource {
-  Future<Product> getProduct(ProductDatabaseParams params);
-  Future<bool> hasProduct(ProductDatabaseParams params);
-  Future cacheProduct(Product product);
+  Future<void> insert(Product product);
+  Future<void> update(Product product);
+  Future<void> delete(Product product);
+
   Future<List<Product>> getAllProducts();
+  Future<Product> getProduct(ProductDatabaseParams params);
+  Future<void> checkOrCache(Product product);
   Future<List<Product>> searchForProducts(ProductQueryParams params);
 }
 
@@ -23,6 +27,23 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
   final Database database;
 
   LocalProductDataSourceImpl(this.database);
+
+  @override
+  Future<void> insert(Product product) {
+    return database.insert(PRODUCTS_TABLE, product.toJson());
+  }
+
+  @override
+  Future<void> update(Product product) {
+    return database.update(PRODUCTS_TABLE, product.toJson(),
+        where: 'id = ?', whereArgs: [product.id]);
+  }
+
+  @override
+  Future<void> delete(Product product) {
+    return database
+        .delete(PRODUCTS_TABLE, where: 'id = ?', whereArgs: [product.id]);
+  }
 
   @override
   Future<List<Product>> getAllProducts() async {
@@ -43,26 +64,25 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
   }
 
   @override
+  Future<void> checkOrCache(Product product) async {
+    database.query(PRODUCTS_TABLE,
+        where: 'id = ?', whereArgs: [product.id]).then((products) {
+      //Its called products because of query syntax but there is allways only one product
+      log('Products in database with params: id = ${product.id}' +
+          products.toString());
+      if (products.length == 0) {
+        //cache
+        insert(product);
+      }
+    });
+  }
+
+  @override
   Future<List<Product>> searchForProducts(ProductQueryParams params) {
-    // TODO: implement searchForProducts
-    return null;
-  }
-
-  @override
-  Future<void> cacheProduct(Product product) async {
-    database.insert(PRODUCTS_TABLE, product.toJson());
-  }
-
-  @override
-  Future<bool> hasProduct(ProductDatabaseParams params) async {
     return database
         .query(PRODUCTS_TABLE,
             where: params.getWhere(), whereArgs: params.getWhereArgs())
-        .then<bool>((products) {
-      //Its called products because of query syntax but there is allways only one product
-      log('Products in database with params: ${params.toString()}' +
-          products.toString());
-      return products.length > 0;
-    });
+        .then<List<Product>>((products) =>
+            products.map((json) => Product.fromJson(json)).toList());
   }
 }

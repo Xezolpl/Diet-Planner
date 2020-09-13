@@ -16,4 +16,8 @@ abstract class IProductRepository {
   //SERVER DATABASE
   Future<Either<Failure, Product>> getProductRemote(
       ProductDatabaseParams params);
+
+  Future<Either<Failure, Unit>> insertProduct(Product product);
+  Future<Either<Failure, Unit>> updateProduct(Product product);
+  Future<Either<Failure, Unit>> deleteProduct(Product product);
 }
