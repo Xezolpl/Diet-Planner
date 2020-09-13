@@ -1,5 +1,5 @@
-import 'package:diet_planner/model/diet.dart';
-import 'package:diet_planner/model/meal.dart';
+import 'package:diet_planner/domain/entities/diet.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

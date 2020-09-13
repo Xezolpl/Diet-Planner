@@ -1,10 +1,9 @@
-import 'package:diet_planner/model/meal.dart';
-import 'package:diet_planner/model/nutrition.dart';
-import 'package:diet_planner/model/product.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
+import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/presentation/meal_products/meal_product_card.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
-import 'package:diet_planner/util/navigator.dart';
+import 'package:diet_planner/presentation/util/navigator.dart';
 import 'package:flutter/material.dart';
 
 class MealProductsPage extends StatefulWidget {
@@ -66,12 +65,7 @@ class _MealProductsPageState extends State<MealProductsPage> {
                 child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    final product = Product(
-                        id: 'id',
-                        name: 'Jabłko czerwone',
-                        category: 'fruit',
-                        nutrition: Nutrition(372, 50, 12.5, 14.3),
-                        weight: 100);
+                    final product = Product.empty();
                     return GestureDetector(
                         onTap: () {
                           navigateToProductPage(context, product, meal);

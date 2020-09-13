@@ -1,4 +1,4 @@
-import 'package:diet_planner/model/product.dart';
+import 'package:diet_planner/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 
 class MealProductCard extends StatefulWidget {
@@ -58,7 +58,7 @@ class _MealProductCardState extends State<MealProductCard> {
                           width: 16,
                         ),
                         Text(
-                          '${product.nutrition.kcal} kcal',
+                          '${product.kcal} kcal',
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],

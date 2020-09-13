@@ -1,6 +1,6 @@
-import 'package:diet_planner/model/meal.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
 import 'package:flutter/material.dart';
-import 'package:diet_planner/util/xdatetime.dart';
+import 'package:diet_planner/core/xdatetime.dart';
 
 AppBar getMealDateAppBar(BuildContext context, Meal meal,
     {List<Widget> actions = const []}) {

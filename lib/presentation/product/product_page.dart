@@ -1,10 +1,13 @@
-import 'package:diet_planner/model/meal.dart';
-import 'package:diet_planner/model/product.dart';
+import 'package:diet_planner/domain/entities/meal.dart';
+import 'package:diet_planner/domain/entities/product.dart';
+import 'package:diet_planner/domain/repositories/products_repository.dart';
 import 'package:diet_planner/presentation/product/portions/portions_view.dart';
 
 import 'package:diet_planner/presentation/widgets/units_dropdown_button.dart';
 import 'package:diet_planner/presentation/widgets/meal_date_appbar.dart';
 import 'package:flutter/material.dart';
+
+import '../../injection.dart';
 
 class ProductPage extends StatefulWidget {
   final Product product;
@@ -25,7 +28,17 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getMealDateAppBar(context, meal),
+      appBar: getMealDateAppBar(context, meal, actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: IconButton(
+            icon: Icon(Icons.done),
+            onPressed: () {
+              getIt<IProductRepository>().insertProduct(product);
+            },
+          ),
+        )
+      ]),
       body: Form(
         child: GestureDetector(
           onTap: () {
@@ -61,7 +74,7 @@ class _ProductPageState extends State<ProductPage> {
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.only(top: 10, bottom: 3),
-                  child: Text('Nutrition',
+                  child: Text('nutrients',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                 ),
@@ -73,48 +86,48 @@ class _ProductPageState extends State<ProductPage> {
                     units: ['kcal'],
                     needed: true,
                     onChanged: (double value) {
-                      product.nutrition.copyWith(kcal: value.toInt());
+                      product.copyWith(kcal: value.toInt());
                     }),
                 LabelWithTextFieldRow(
                     label: 'Carbohydrates',
                     units: ['g'],
                     needed: true,
                     onChanged: (double value) {
-                      product.nutrition.copyWith(carbohydrates: value);
+                      product.copyWith(carbohydrates: value);
                     }),
                 LabelWithTextFieldRow(
                     label: 'Sugars',
                     units: ['g'],
                     indent: 30,
                     onChanged: (double value) {
-                      product.nutrition.copyWith(sugars: value);
+                      product.copyWith(sugars: value);
                     }),
                 LabelWithTextFieldRow(
                     label: 'Proteins',
                     units: ['g'],
                     needed: true,
                     onChanged: (double value) {
-                      product.nutrition.copyWith(proteins: value);
+                      product.copyWith(proteins: value);
                     }),
                 LabelWithTextFieldRow(
                     label: 'Fats',
                     units: ['g'],
                     needed: true,
                     onChanged: (double value) {
-                      product.nutrition.copyWith(fats: value);
+                      product.copyWith(fats: value);
                     }),
                 LabelWithTextFieldRow(
                     label: 'Saturated',
                     units: ['g'],
                     indent: 30,
                     onChanged: (double value) {
-                      product.nutrition.copyWith(saturated: value);
+                      product.copyWith(saturated: value);
                     }),
                 LabelWithTextFieldRow(
                     label: 'Salt',
                     units: ['g'],
                     onChanged: (double value) {
-                      product.nutrition.copyWith(salt: value);
+                      product.copyWith(salt: value);
                     }),
                 SizedBox(
                   height: 20,
@@ -154,69 +167,67 @@ class _ProductPageState extends State<ProductPage> {
                             units: ['g'],
                             indent: 30,
                             onChanged: (double value) {
-                              product.nutrition
-                                  .copyWith(monounsaturated: value);
+                              product.copyWith(monounsaturated: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Poliunsaturated',
                             units: ['g'],
                             indent: 30,
                             onChanged: (double value) {
-                              product.nutrition
-                                  .copyWith(poliunsaturated: value);
+                              product.copyWith(poliunsaturated: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Omega 3',
                             units: ['g'],
                             indent: 60,
                             onChanged: (double value) {
-                              product.nutrition.copyWith(omega3: value);
+                              product.copyWith(omega3: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'ALA',
                             units: ['g'],
                             indent: 90,
                             onChanged: (double value) {
-                              product.nutrition.copyWith(ala: value);
+                              product.copyWith(ala: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'EPA',
                             units: ['g'],
                             indent: 90,
                             onChanged: (double value) {
-                              product.nutrition.copyWith(epa: value);
+                              product.copyWith(epa: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'DHA',
                             units: ['g'],
                             indent: 90,
                             onChanged: (double value) {
-                              product.nutrition.copyWith(dha: value);
+                              product.copyWith(dha: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Omega 6',
                             units: ['g'],
                             indent: 60,
                             onChanged: (double value) {
-                              product.nutrition.copyWith(omega6: value);
+                              product.copyWith(omega6: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Fibre',
                             units: ['g'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(fibre: value);
+                              product.copyWith(fibre: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Cholesterol',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(cholesterol: value);
+                              product.copyWith(cholesterol: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Caffeine',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(caffeine: value);
+                              product.copyWith(caffeine: value);
                             }),
                         SizedBox(
                           height: 10,
@@ -227,94 +238,94 @@ class _ProductPageState extends State<ProductPage> {
                             hint: '(Retinol)',
                             units: ['µg', 'mg', 'IU'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminA: value);
+                              product.copyWith(vitaminA: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin C',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminC: value);
+                              product.copyWith(vitaminC: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin D',
                             units: ['IU', 'µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminD: value);
+                              product.copyWith(vitaminD: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin E',
                             units: ['mg', 'µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminE: value);
+                              product.copyWith(vitaminE: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin K',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminK: value);
+                              product.copyWith(vitaminK: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B1',
                             hint: '(Thiamin)',
                             units: ['µg', 'mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB1: value);
+                              product.copyWith(vitaminB1: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B2',
                             hint: '(Riboflavin)',
                             units: ['µg', 'mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB2: value);
+                              product.copyWith(vitaminB2: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B3',
                             hint: '(Niacin, PP)',
                             units: ['mg', 'µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB3: value);
+                              product.copyWith(vitaminB3: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Choline',
                             hint: '(Vitamin B4)',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB4: value);
+                              product.copyWith(vitaminB4: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B5',
                             hint: '(Pantothenic acid)',
                             units: ['mg', 'µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB5: value);
+                              product.copyWith(vitaminB5: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B6',
                             hint: '(Pyridoxine)',
                             units: ['µg', 'mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB6: value);
+                              product.copyWith(vitaminB6: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B7',
                             hint: '(Biotin)',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB7: value);
+                              product.copyWith(vitaminB7: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Folic Acid',
                             hint: '(Vitamin B9)',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB9: value);
+                              product.copyWith(vitaminB9: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Vitamin B12',
                             hint: '(Cobalamin)',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(vitaminB12: value);
+                              product.copyWith(vitaminB12: value);
                             }),
                         SizedBox(
                           height: 10,
@@ -324,67 +335,67 @@ class _ProductPageState extends State<ProductPage> {
                             label: 'Sodium',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(sodium: value);
+                              product.copyWith(sodium: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Potassium',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(potassium: value);
+                              product.copyWith(potassium: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Calcium',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(calcium: value);
+                              product.copyWith(calcium: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Magnesium',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(magnesium: value);
+                              product.copyWith(magnesium: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Phosphorous',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(phosphorous: value);
+                              product.copyWith(phosphorous: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Iron',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(iron: value);
+                              product.copyWith(iron: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Copper',
                             units: ['mg', 'µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(copper: value);
+                              product.copyWith(copper: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Zinc',
                             units: ['mg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(zinc: value);
+                              product.copyWith(zinc: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Fluorine',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(fluorine: value);
+                              product.copyWith(fluorine: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Selenium',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(selenium: value);
+                              product.copyWith(selenium: value);
                             }),
                         LabelWithTextFieldRow(
                             label: 'Iodine',
                             units: ['µg'],
                             onChanged: (double value) {
-                              product.nutrition.copyWith(iodine: value);
+                              product.copyWith(iodine: value);
                             }),
                       ],
                     )))

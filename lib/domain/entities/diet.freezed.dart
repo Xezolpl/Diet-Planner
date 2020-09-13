@@ -16,12 +16,10 @@ class _$DietTearOff {
   _Diet call(
       {@required String id,
       @required String name,
-      @required Nutrition overralNutrition,
       @required List<Meal> meals}) {
     return _Diet(
       id: id,
       name: name,
-      overralNutrition: overralNutrition,
       meals: meals,
     );
   }
@@ -33,7 +31,6 @@ const $Diet = _$DietTearOff();
 mixin _$Diet {
   String get id;
   String get name;
-  Nutrition get overralNutrition;
   List<Meal> get meals;
 
   $DietCopyWith<Diet> get copyWith;
@@ -42,10 +39,7 @@ mixin _$Diet {
 abstract class $DietCopyWith<$Res> {
   factory $DietCopyWith(Diet value, $Res Function(Diet) then) =
       _$DietCopyWithImpl<$Res>;
-  $Res call(
-      {String id, String name, Nutrition overralNutrition, List<Meal> meals});
-
-  $NutritionCopyWith<$Res> get overralNutrition;
+  $Res call({String id, String name, List<Meal> meals});
 }
 
 class _$DietCopyWithImpl<$Res> implements $DietCopyWith<$Res> {
@@ -59,27 +53,13 @@ class _$DietCopyWithImpl<$Res> implements $DietCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object overralNutrition = freezed,
     Object meals = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      overralNutrition: overralNutrition == freezed
-          ? _value.overralNutrition
-          : overralNutrition as Nutrition,
       meals: meals == freezed ? _value.meals : meals as List<Meal>,
     ));
-  }
-
-  @override
-  $NutritionCopyWith<$Res> get overralNutrition {
-    if (_value.overralNutrition == null) {
-      return null;
-    }
-    return $NutritionCopyWith<$Res>(_value.overralNutrition, (value) {
-      return _then(_value.copyWith(overralNutrition: value));
-    });
   }
 }
 
@@ -87,11 +67,7 @@ abstract class _$DietCopyWith<$Res> implements $DietCopyWith<$Res> {
   factory _$DietCopyWith(_Diet value, $Res Function(_Diet) then) =
       __$DietCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String id, String name, Nutrition overralNutrition, List<Meal> meals});
-
-  @override
-  $NutritionCopyWith<$Res> get overralNutrition;
+  $Res call({String id, String name, List<Meal> meals});
 }
 
 class __$DietCopyWithImpl<$Res> extends _$DietCopyWithImpl<$Res>
@@ -106,29 +82,20 @@ class __$DietCopyWithImpl<$Res> extends _$DietCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object name = freezed,
-    Object overralNutrition = freezed,
     Object meals = freezed,
   }) {
     return _then(_Diet(
       id: id == freezed ? _value.id : id as String,
       name: name == freezed ? _value.name : name as String,
-      overralNutrition: overralNutrition == freezed
-          ? _value.overralNutrition
-          : overralNutrition as Nutrition,
       meals: meals == freezed ? _value.meals : meals as List<Meal>,
     ));
   }
 }
 
 class _$_Diet implements _Diet {
-  const _$_Diet(
-      {@required this.id,
-      @required this.name,
-      @required this.overralNutrition,
-      @required this.meals})
+  const _$_Diet({@required this.id, @required this.name, @required this.meals})
       : assert(id != null),
         assert(name != null),
-        assert(overralNutrition != null),
         assert(meals != null);
 
   @override
@@ -136,13 +103,11 @@ class _$_Diet implements _Diet {
   @override
   final String name;
   @override
-  final Nutrition overralNutrition;
-  @override
   final List<Meal> meals;
 
   @override
   String toString() {
-    return 'Diet(id: $id, name: $name, overralNutrition: $overralNutrition, meals: $meals)';
+    return 'Diet(id: $id, name: $name, meals: $meals)';
   }
 
   @override
@@ -153,9 +118,6 @@ class _$_Diet implements _Diet {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.overralNutrition, overralNutrition) ||
-                const DeepCollectionEquality()
-                    .equals(other.overralNutrition, overralNutrition)) &&
             (identical(other.meals, meals) ||
                 const DeepCollectionEquality().equals(other.meals, meals)));
   }
@@ -165,7 +127,6 @@ class _$_Diet implements _Diet {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(overralNutrition) ^
       const DeepCollectionEquality().hash(meals);
 
   @override
@@ -177,15 +138,12 @@ abstract class _Diet implements Diet {
   const factory _Diet(
       {@required String id,
       @required String name,
-      @required Nutrition overralNutrition,
       @required List<Meal> meals}) = _$_Diet;
 
   @override
   String get id;
   @override
   String get name;
-  @override
-  Nutrition get overralNutrition;
   @override
   List<Meal> get meals;
   @override
