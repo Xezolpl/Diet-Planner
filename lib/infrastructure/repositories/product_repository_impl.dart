@@ -10,7 +10,7 @@ import 'package:diet_planner/domain/repositories/products_repository.dart';
 import 'package:diet_planner/infrastructure/datasources/api_product_datasource.dart';
 import 'package:diet_planner/infrastructure/datasources/database_product_datasource.dart';
 import 'package:diet_planner/infrastructure/datasources/local_product_datasource.dart';
-import 'package:diet_planner/infrastructure/local_database.dart';
+import 'package:diet_planner/infrastructure/db/local_database.dart';
 import 'package:injectable/injectable.dart';
 
 ///Typedef used to distinc the product is from database (server) or api
@@ -97,7 +97,8 @@ class ProductRepositoryImpl implements IProductRepository {
   ///Searching only in Api or local (if offline)
   @override
   Future<Either<Failure, List<Product>>> searchForProducts(
-      ProductQueryParams params) async {
+      ProductQueryParams params,
+      [bool fromApi = false]) async {
     if (await networkInfo.isConnected) {
       //TODO: Implement searching for products in API
     } else {
@@ -116,7 +117,10 @@ class ProductRepositoryImpl implements IProductRepository {
     try {
       await localProductDataSource.insert(product);
       if (await networkInfo.isConnected) {
-        //TODOawait remoteProductDataSource.insert(product);
+        //TODO: await remoteProductDataSource.insert(product);
+      } else {
+        //TODO: say that it have to be sychronised with server so idk
+        //add it to some table named "toSyncWithServer" or everyday synchro data between those
       }
       return Right(unit);
     } on DatabaseException catch (e) {

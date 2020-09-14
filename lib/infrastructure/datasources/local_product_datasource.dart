@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/product.dart';
-import 'package:diet_planner/infrastructure/local_database.dart';
+import 'package:diet_planner/infrastructure/db/local_database.dart';
 import 'package:injectable/injectable.dart';
 
 ///CONSTANTS

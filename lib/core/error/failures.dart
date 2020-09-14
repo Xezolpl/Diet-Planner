@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:diet_planner/infrastructure/local_database.dart';
+import 'package:diet_planner/infrastructure/db/local_database.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {}
