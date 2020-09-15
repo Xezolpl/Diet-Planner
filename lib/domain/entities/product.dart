@@ -12,6 +12,7 @@ abstract class Product with _$Product {
     @required String name,
     @required String category,
     @required double weight,
+    @nullable int barcode,
     //major nutrients
     @required int kcal,
     @required double carbohydrates,

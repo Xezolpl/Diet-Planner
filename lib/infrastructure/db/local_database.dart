@@ -25,6 +25,7 @@ const CREATE_PRODUCTS_TABLE_SQL = '''
         "name"	TEXT NOT NULL,
         "category"	TEXT,
         "weight"	NUMERIC,
+        "barcode" INTEGER,
         "kcal"	INTEGER NOT NULL,
         "carbohydrates"	NUMERIC NOT NULL,
         "proteins"	NUMERIC NOT NULL,

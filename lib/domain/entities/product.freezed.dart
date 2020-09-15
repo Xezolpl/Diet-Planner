@@ -21,6 +21,7 @@ class _$ProductTearOff {
       @required String name,
       @required String category,
       @required double weight,
+      @nullable int barcode,
       @required int kcal,
       @required double carbohydrates,
       @required double proteins,
@@ -68,6 +69,7 @@ class _$ProductTearOff {
       name: name,
       category: category,
       weight: weight,
+      barcode: barcode,
       kcal: kcal,
       carbohydrates: carbohydrates,
       proteins: proteins,
@@ -122,6 +124,8 @@ mixin _$Product {
   String get name;
   String get category;
   double get weight;
+  @nullable
+  int get barcode;
   int get kcal;
   double get carbohydrates;
   double get proteins;
@@ -215,6 +219,7 @@ abstract class $ProductCopyWith<$Res> {
       String name,
       String category,
       double weight,
+      @nullable int barcode,
       int kcal,
       double carbohydrates,
       double proteins,
@@ -272,6 +277,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object name = freezed,
     Object category = freezed,
     Object weight = freezed,
+    Object barcode = freezed,
     Object kcal = freezed,
     Object carbohydrates = freezed,
     Object proteins = freezed,
@@ -320,6 +326,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
       name: name == freezed ? _value.name : name as String,
       category: category == freezed ? _value.category : category as String,
       weight: weight == freezed ? _value.weight : weight as double,
+      barcode: barcode == freezed ? _value.barcode : barcode as int,
       kcal: kcal == freezed ? _value.kcal : kcal as int,
       carbohydrates: carbohydrates == freezed
           ? _value.carbohydrates
@@ -384,6 +391,7 @@ abstract class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String name,
       String category,
       double weight,
+      @nullable int barcode,
       int kcal,
       double carbohydrates,
       double proteins,
@@ -442,6 +450,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
     Object name = freezed,
     Object category = freezed,
     Object weight = freezed,
+    Object barcode = freezed,
     Object kcal = freezed,
     Object carbohydrates = freezed,
     Object proteins = freezed,
@@ -490,6 +499,7 @@ class __$ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
       name: name == freezed ? _value.name : name as String,
       category: category == freezed ? _value.category : category as String,
       weight: weight == freezed ? _value.weight : weight as double,
+      barcode: barcode == freezed ? _value.barcode : barcode as int,
       kcal: kcal == freezed ? _value.kcal : kcal as int,
       carbohydrates: carbohydrates == freezed
           ? _value.carbohydrates
@@ -552,6 +562,7 @@ class _$_Product implements _Product {
       @required this.name,
       @required this.category,
       @required this.weight,
+      @nullable this.barcode,
       @required this.kcal,
       @required this.carbohydrates,
       @required this.proteins,
@@ -614,6 +625,9 @@ class _$_Product implements _Product {
   final String category;
   @override
   final double weight;
+  @override
+  @nullable
+  final int barcode;
   @override
   final int kcal;
   @override
@@ -739,7 +753,7 @@ class _$_Product implements _Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, category: $category, weight: $weight, kcal: $kcal, carbohydrates: $carbohydrates, proteins: $proteins, fats: $fats, sugars: $sugars, salt: $salt, saturated: $saturated, monounsaturated: $monounsaturated, poliunsaturated: $poliunsaturated, omega3: $omega3, omega6: $omega6, ala: $ala, epa: $epa, dha: $dha, fibre: $fibre, cholesterol: $cholesterol, caffeine: $caffeine, vitaminA: $vitaminA, vitaminB1: $vitaminB1, vitaminB2: $vitaminB2, vitaminB3: $vitaminB3, vitaminB4: $vitaminB4, vitaminB5: $vitaminB5, vitaminB6: $vitaminB6, vitaminB7: $vitaminB7, vitaminB9: $vitaminB9, vitaminB12: $vitaminB12, vitaminC: $vitaminC, vitaminD: $vitaminD, vitaminE: $vitaminE, vitaminK: $vitaminK, sodium: $sodium, potassium: $potassium, calcium: $calcium, magnesium: $magnesium, phosphorous: $phosphorous, iron: $iron, copper: $copper, zinc: $zinc, fluorine: $fluorine, selenium: $selenium, iodine: $iodine)';
+    return 'Product(id: $id, name: $name, category: $category, weight: $weight, barcode: $barcode, kcal: $kcal, carbohydrates: $carbohydrates, proteins: $proteins, fats: $fats, sugars: $sugars, salt: $salt, saturated: $saturated, monounsaturated: $monounsaturated, poliunsaturated: $poliunsaturated, omega3: $omega3, omega6: $omega6, ala: $ala, epa: $epa, dha: $dha, fibre: $fibre, cholesterol: $cholesterol, caffeine: $caffeine, vitaminA: $vitaminA, vitaminB1: $vitaminB1, vitaminB2: $vitaminB2, vitaminB3: $vitaminB3, vitaminB4: $vitaminB4, vitaminB5: $vitaminB5, vitaminB6: $vitaminB6, vitaminB7: $vitaminB7, vitaminB9: $vitaminB9, vitaminB12: $vitaminB12, vitaminC: $vitaminC, vitaminD: $vitaminD, vitaminE: $vitaminE, vitaminK: $vitaminK, sodium: $sodium, potassium: $potassium, calcium: $calcium, magnesium: $magnesium, phosphorous: $phosphorous, iron: $iron, copper: $copper, zinc: $zinc, fluorine: $fluorine, selenium: $selenium, iodine: $iodine)';
   }
 
   @override
@@ -755,6 +769,9 @@ class _$_Product implements _Product {
                     .equals(other.category, category)) &&
             (identical(other.weight, weight) ||
                 const DeepCollectionEquality().equals(other.weight, weight)) &&
+            (identical(other.barcode, barcode) ||
+                const DeepCollectionEquality()
+                    .equals(other.barcode, barcode)) &&
             (identical(other.kcal, kcal) ||
                 const DeepCollectionEquality().equals(other.kcal, kcal)) &&
             (identical(other.carbohydrates, carbohydrates) ||
@@ -814,9 +831,7 @@ class _$_Product implements _Product {
             (identical(other.vitaminB5, vitaminB5) ||
                 const DeepCollectionEquality()
                     .equals(other.vitaminB5, vitaminB5)) &&
-            (identical(other.vitaminB6, vitaminB6) ||
-                const DeepCollectionEquality()
-                    .equals(other.vitaminB6, vitaminB6)) &&
+            (identical(other.vitaminB6, vitaminB6) || const DeepCollectionEquality().equals(other.vitaminB6, vitaminB6)) &&
             (identical(other.vitaminB7, vitaminB7) || const DeepCollectionEquality().equals(other.vitaminB7, vitaminB7)) &&
             (identical(other.vitaminB9, vitaminB9) || const DeepCollectionEquality().equals(other.vitaminB9, vitaminB9)) &&
             (identical(other.vitaminB12, vitaminB12) || const DeepCollectionEquality().equals(other.vitaminB12, vitaminB12)) &&
@@ -844,6 +859,7 @@ class _$_Product implements _Product {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(weight) ^
+      const DeepCollectionEquality().hash(barcode) ^
       const DeepCollectionEquality().hash(kcal) ^
       const DeepCollectionEquality().hash(carbohydrates) ^
       const DeepCollectionEquality().hash(proteins) ^
@@ -903,6 +919,7 @@ abstract class _Product implements Product {
       @required String name,
       @required String category,
       @required double weight,
+      @nullable int barcode,
       @required int kcal,
       @required double carbohydrates,
       @required double proteins,
@@ -956,6 +973,9 @@ abstract class _Product implements Product {
   String get category;
   @override
   double get weight;
+  @override
+  @nullable
+  int get barcode;
   @override
   int get kcal;
   @override
