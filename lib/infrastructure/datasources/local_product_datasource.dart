@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:diet_planner/core/error/exceptions.dart';
 import 'package:diet_planner/core/params.dart';
 import 'package:diet_planner/domain/entities/product.dart';
 import 'package:diet_planner/infrastructure/db/local_database.dart';
@@ -41,7 +42,7 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
   }
 
   @override
-  Future<void> delete(Product product) {
+  Future<int> delete(Product product) {
     log('Deleting product: $product');
     return database
         .delete(PRODUCTS_TABLE, where: 'id = ?', whereArgs: [product.id]);
@@ -63,19 +64,22 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
         .then<Product>((products) {
       //Its called products because of query syntax but there is allways only one product
       log('Getting concrete product succed with: ' + products.toString());
-      return Product.fromJson(products.first);
+      if (products.isEmpty)
+        throw CacheException();
+      else
+        return Product.fromJson(products.first);
     });
   }
 
   @override
   Future<void> checkOrCache(Product product) async {
     log('Check or cache the product called for $product');
-    database.query(PRODUCTS_TABLE,
-        where: 'id = ?', whereArgs: [product.id]).then((products) {
+    await database.query(PRODUCTS_TABLE,
+        where: 'id = ?', whereArgs: [product.id]).then((products) async {
       //Its called products because of query syntax but there is allways only one product
       if (products.length == 0) {
         log('Cache product $product');
-        insert(product);
+        await insert(product);
       }
     });
   }

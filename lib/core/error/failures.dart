@@ -30,7 +30,7 @@ class ServerFailure extends Failure {
 }
 
 class CacheFailure extends Failure {
-  final DatabaseException exception;
+  final Exception exception;
   final String methodName;
 
   CacheFailure(this.exception, this.methodName) {

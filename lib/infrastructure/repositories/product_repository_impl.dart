@@ -89,7 +89,7 @@ class ProductRepositoryImpl implements IProductRepository {
     try {
       final product = await localProductDataSource.getProduct(params);
       return Right(product);
-    } on DatabaseException catch (e) {
+    } on CacheException catch (e) {
       return Left(CacheFailure(e, 'getProductLocal()'));
     }
   }
@@ -124,6 +124,7 @@ class ProductRepositoryImpl implements IProductRepository {
       }
       return Right(unit);
     } on DatabaseException catch (e) {
+      //e.g. there is already a product with that id
       return Left(CacheFailure(e, 'insertProduct()'));
     } on ServerException catch (e) {
       return Left(ServerFailure(e, 'insertProduct()'));
