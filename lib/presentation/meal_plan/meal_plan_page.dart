@@ -1,6 +1,7 @@
 import 'package:diet_planner/domain/entities/diet.dart';
 import 'package:diet_planner/domain/entities/meal.dart';
 import 'package:diet_planner/presentation/widgets/ads.dart';
+import 'package:diet_planner/presentation/widgets/no_internet_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

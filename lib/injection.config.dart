@@ -7,7 +7,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-import 'infrastructure/local_database.dart';
+import 'infrastructure/db/local_database.dart';
 import 'infrastructure/datasources/api_product_datasource.dart';
 import 'infrastructure/datasources/database_product_datasource.dart';
 import 'infrastructure/datasources/local_product_datasource.dart';

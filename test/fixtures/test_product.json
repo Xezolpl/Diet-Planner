@@ -1,0 +1,10 @@
+{
+    "id": "UUID",
+    "name": "Product name",
+    "category": "none",
+    "weight": 0.5,
+    "kcal": 350,
+    "carbohydrates":  50,
+    "proteins": 30,
+    "fats": 10
+}

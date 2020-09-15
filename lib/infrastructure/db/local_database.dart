@@ -15,13 +15,17 @@ abstract class DatabaseSingleton {
 
   static _createTables(Database db) async {
     log('Creating sqlite tables');
+    await db.execute(CREATE_PRODUCTS_TABLE_SQL);
+  }
+}
 
-    await db.execute('''
+const CREATE_PRODUCTS_TABLE_SQL = '''
       CREATE TABLE "products" (
         "id"	TEXT NOT NULL UNIQUE,
         "name"	TEXT NOT NULL,
         "category"	TEXT,
         "weight"	NUMERIC,
+        "barcode" INTEGER,
         "kcal"	INTEGER NOT NULL,
         "carbohydrates"	NUMERIC NOT NULL,
         "proteins"	NUMERIC NOT NULL,
@@ -66,6 +70,4 @@ abstract class DatabaseSingleton {
         "iodine"	NUMERIC,
         PRIMARY KEY("id")
       );
-    ''');
-  }
-}
+    ''';

@@ -1,25 +1,42 @@
+import 'dart:developer';
+
+import 'package:diet_planner/infrastructure/db/local_database.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class Failure extends Equatable {
-  final String message;
-
-  Failure(this.message);
-
-  @override
-  String toString() => '${this.toString()}. Error message: $message';
-
-  @override
-  List<Object> get props => [];
-}
+abstract class Failure extends Equatable {}
 
 class ApiFailure extends Failure {
-  ApiFailure(String message) : super(message);
+  final Exception exception;
+  final String methodName;
+
+  ApiFailure(this.exception, this.methodName) {
+    log('ApiException caught in $methodName. Error: $exception');
+  }
+
+  @override
+  List<Object> get props => [exception, methodName];
 }
 
 class ServerFailure extends Failure {
-  ServerFailure(String message) : super(message);
+  final Exception exception;
+  final String methodName;
+
+  ServerFailure(this.exception, this.methodName) {
+    log('ServerException caught in $methodName. Error: $exception');
+  }
+
+  @override
+  List<Object> get props => [exception, methodName];
 }
 
 class CacheFailure extends Failure {
-  CacheFailure(String message) : super(message);
+  final Exception exception;
+  final String methodName;
+
+  CacheFailure(this.exception, this.methodName) {
+    log('DatabaseException caught in $methodName. Error: $exception');
+  }
+
+  @override
+  List<Object> get props => [exception, methodName];
 }
