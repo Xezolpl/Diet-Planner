@@ -11,9 +11,9 @@ const String PRODUCTS_TABLE = 'products';
 
 ///ABSTRACTION ON DATASOURCE
 abstract class ILocalProductDataSource {
-  Future<void> insert(Product product);
-  Future<void> update(Product product);
-  Future<void> delete(Product product);
+  Future<int> insert(Product product);
+  Future<int> update(Product product);
+  Future<int> delete(Product product);
 
   Future<List<Product>> getAllProducts();
   Future<Product> getProduct(ProductDatabaseParams params);
@@ -29,13 +29,13 @@ class LocalProductDataSourceImpl implements ILocalProductDataSource {
   LocalProductDataSourceImpl(this.database);
 
   @override
-  Future<void> insert(Product product) {
+  Future<int> insert(Product product) {
     log('Inserting product: $product');
     return database.insert(PRODUCTS_TABLE, product.toJson());
   }
 
   @override
-  Future<void> update(Product product) {
+  Future<int> update(Product product) {
     log('Updating product: $product');
     return database.update(PRODUCTS_TABLE, product.toJson(),
         where: 'id = ?', whereArgs: [product.id]);

@@ -56,7 +56,7 @@ void main() {
         // assert
         try {
           expect(() => call(ProductDatabaseParams(id: dumpId)),
-              throwsA(isInstanceOf<CacheException>()));
+              throwsA(isA<CacheException>()));
         } on CacheException {}
 
         //close
@@ -145,16 +145,12 @@ void main() {
     );
 
     test(
-      '''should throw DatabaseException when trying to insert
-      second product same id''',
+      '''updating nonexistent product -should return 0''',
       () async {
-        // arrange
-        await localDataSource.insert(tProduct);
-        // act
-        final call = localDataSource.insert;
+        //act
+        final recordsUpdated = await localDataSource.update(tProduct);
         // assert
-        expect(
-            () => call(tProduct), throwsA(isInstanceOf<DatabaseException>()));
+        expect(recordsUpdated, 0);
         //clean up
         testDatabase
           ..delete('products')

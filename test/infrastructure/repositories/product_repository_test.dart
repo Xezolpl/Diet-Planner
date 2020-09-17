@@ -102,8 +102,115 @@ void main() {
       //act
       final result =
           await repository.getProductLocal(ProductDatabaseParams(id: wrongId));
-      //assert
-      result.fold((l) => expect(l, isInstanceOf<CacheFailure>()), (r) => null);
+
+      var failure;
+      result.leftMap((l) => failure = l);
+      // assert
+      expect(result.isLeft(), true);
+      expect(failure, isA<CacheFailure>());
+      //clean up
+      database
+        ..delete(PRODUCTS_TABLE)
+        ..close();
     });
+  });
+
+  group('insert product', () {
+    test(
+      'should insert product to the database and return unit',
+      () async {
+        // act
+        final result = await repository.insertProduct(tProduct);
+        // assert
+        expect(result.isRight(), true);
+
+        //clean up
+        database
+          ..delete(PRODUCTS_TABLE)
+          ..close();
+      },
+    );
+    test(
+      'should return CacheFailure when product actually exists in the local database',
+      () async {
+        //arange
+        await repository.insertProduct(tProduct);
+        // act
+        final result = await repository.insertProduct(tProduct);
+        var failure;
+        result.leftMap((l) => failure = l);
+        // assert
+        expect(result.isLeft(), true);
+        expect(failure, isA<CacheFailure>());
+
+        //clean up
+        database
+          ..delete(PRODUCTS_TABLE)
+          ..close();
+      },
+    );
+  });
+
+  group('update product', () {
+    test(
+      'should update product in the database and return unit when the product exists',
+      () async {
+        //arange
+        await repository.insertProduct(tProduct);
+        // act
+        final result = await repository.updateProduct(tProduct);
+        // assert
+        expect(result.isRight(), true);
+
+        //clean up
+        database
+          ..delete(PRODUCTS_TABLE)
+          ..close();
+      },
+    );
+    test(
+      'should return unit when updating nonexistent product ',
+      () async {
+        // act
+        final result = await repository.updateProduct(tProduct);
+        // assert
+        expect(result.isRight(), true);
+        //clean up
+        database
+          ..delete(PRODUCTS_TABLE)
+          ..close();
+      },
+    );
+  });
+  group('delete product', () {
+    test(
+      'should delete product in the database and return unit when the product exists',
+      () async {
+        //arange
+        await repository.insertProduct(tProduct);
+        // act
+        final result = await repository.deleteProduct(tProduct);
+        // assert
+        expect(result.isRight(), true);
+
+        //clean up
+        database
+          ..delete(PRODUCTS_TABLE)
+          ..close();
+      },
+    );
+    test(
+      'should return unit when updating nonexistent product ',
+      () async {
+        // act
+        final result = await repository.deleteProduct(tProduct);
+        // assert
+        expect(result.isRight(), true);
+        //clean up
+        database
+          ..delete(PRODUCTS_TABLE)
+          ..close();
+      },
+    );
   });
 }
